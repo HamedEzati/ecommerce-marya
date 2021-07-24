@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">-->
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+>
+
+<!--<html-->
+<!--        xmlns="http://www.w3.org/1999/xhtml"-->
+<!--      xmlns:h="http://java.sun.com/jsf/html"-->
+<!--      xmlns:f="http://java.sun.com/jsf/core"-->
+<!--      xmlns:p="http://primefaces.org/ui">-->
+<h:head>
+    <title>com.marya</title>
+<!--    <link rel="stylesheet" href="${request.contextPath}/WEB-INF/layouts/css/bootstrap.css" type="text/css"/>-->
+</h:head>
+<style type="text/css">
+    .ui-panel, div.ui-state-hover {
+        margin: 10px;
+        width:200px;
+    }
+
+    .ui-dashboard-column {
+        width:220px;
+    }
+</style>
+<h:body>
+
+    <div class="card">
+        <h:form>
+            <p:growl id="messages"/>
+
+            <p:menubar>
+                <p:submenu label="File" icon="pi pi-fw pi-file">
+                    <p:submenu label="New" icon="pi pi-fw pi-plus">
+                        <p:menuitem value="Bookmark" icon="pi pi-fw pi-bookmark"/>
+                        <p:menuitem value="Video" icon="pi pi-fw pi-video"/>
+                    </p:submenu>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-trash"/>
+<!--                    <p:divider />-->
+                    <p:menuitem value="Export" icon="pi pi-fw pi-external-link"/>
+                </p:submenu>
+
+                <p:submenu label="Edit" icon="pi pi-fw pi-pencil">
+                    <p:menuitem value="Left" icon="pi pi-fw pi-align-left"/>
+                    <p:menuitem value="Right" icon="pi pi-fw pi-align-right"/>
+                    <p:menuitem value="Center" icon="pi pi-fw pi-align-center"/>
+                    <p:menuitem value="Justify" icon="pi pi-fw pi-align-justify"/>
+                </p:submenu>
+
+                <p:submenu label="Users" icon="pi pi-fw pi-user">
+                    <p:menuitem value="New" icon="pi pi-fw pi-user-plus"/>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-user-minus"/>
+                    <p:submenu label="Search" icon="pi pi-fw pi-users">
+                        <p:submenu label="Filter" icon="pi pi-fw pi-filter">
+                            <p:menuitem value="Print" icon="pi pi-fw pi-print"/>
+                        </p:submenu>
+                        <p:menuitem value="List" icon="pi pi-fw pi-bars"/>
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu label="Events" icon="pi pi-fw pi-calendar">
+                    <p:submenu label="Edit" icon="pi pi-fw pi-pencil">
+                        <p:menuitem value="Save" icon="pi pi-fw pi-calendar-plus"/>
+                        <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>
+                    </p:submenu>
+                    <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                        <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                    </p:submenu>
+                </p:submenu>
+
+<!--                <p:divider layout="vertical"/>-->
+
+                <p:menuitem value="Quit" icon="pi pi-fw pi-power-off"/>
+
+                <f:facet name="options">
+                    <div class="ui-input-icon-left p-mr-2">
+                        <i class="pi pi-fw pi-search" />
+                        <p:inputText placeholder="Search"/>
+                    </div>
+                    <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+                </f:facet>
+            </p:menubar>
+        </h:form>
+    </div>
+
+    <h:form>
+
+        <p:separator />
+
+        <p:commandButton id="dynaButton" value="Start" type="button" icon="pi pi-home"/>
+        <p:slideMenu overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:400px;">
+            <p:submenu label="CRUD Operations" style="height: 30px;">
+                <p:menuitem value="Create" action="#{pageView.create}"  icon="pi pi-save"/>
+                <p:menuitem value="Read, Update, Delete" action="#{pageView.readupdatedelete}"  icon="pi pi-refresh"/>
+            </p:submenu>
+            <p:submenu label="Other" style="height: 30px;">
+                <p:menuitem value="File Upload" action="#{pageView.fileupload}"  icon="pi pi-save"/>
+            </p:submenu>
+        </p:slideMenu>
+    </h:form>
+<h:form>
+
+
+
+
+
+    <div style="height:500px">
+        <h:form style="align-content: center">
+            <h1>USED TECHNOLOGIES</h1>
+             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+
+            <p:dashboard id="board" model="#{dashboardView.model}">
+                <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs" />
+
+                <p:panel id="spring" header="Spring Boot Version">
+                    <h:outputText value="2.2.6" />
+                </p:panel>
+
+                <p:panel id="jdk" header="Java Version">
+                    <h:outputText value="openJDK 11" />
+                </p:panel>
+
+                <p:panel id="primefaces" header="Primefaces Version">
+                    <h:outputText value="6.1"  />
+                </p:panel>
+
+                <p:panel id="jsf" header="JSF Version">
+                    <h:outputText value="2.2.0" />
+                </p:panel>
+
+                <p:panel id="hsqldb" header="HSQL Ebedded DB Version">
+                    <h:outputText value="2.4.0" />
+                </p:panel>
+            </p:dashboard>
+
+            <div style="clear:both" />
+        </h:form>
+    </div>
+    <div>
+
+    </div>
+</h:form>
+
+
+</h:body>
+
+
+
+<!--</html>-->
+</f:view>
