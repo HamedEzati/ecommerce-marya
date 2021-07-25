@@ -1,18 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">-->
-<f:view xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:p="http://primefaces.org/ui"
->
 
-    <!--<html-->
-    <!--        xmlns="http://www.w3.org/1999/xhtml"-->
-    <!--      xmlns:h="http://java.sun.com/jsf/html"-->
-    <!--      xmlns:f="http://java.sun.com/jsf/core"-->
-    <!--      xmlns:p="http://primefaces.org/ui">-->
+        <html
+                xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>com.marya</title>
+        <title>dashboard</title>
         <!--    <link rel="stylesheet" href="${request.contextPath}/WEB-INF/layouts/css/bootstrap.css" type="text/css"/>-->
     </h:head>
 
@@ -102,7 +97,7 @@
                         <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
                         <p:resetInput target=":form:manage-product-content"/>
                     </p:commandButton>
-                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                    <p:commandButton styleClass="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
                                      oncomplete="PF('deleteProductDialog').show()">
                         <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
                     </p:commandButton>
@@ -173,7 +168,6 @@
             </p:confirmDialog>
         </div>
     </h:form>
+</h:body>
 
-
-    <!--</html>-->
-</f:view>
+    </html>
