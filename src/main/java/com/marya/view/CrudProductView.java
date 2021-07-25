@@ -1,8 +1,13 @@
 package com.marya.view;
 
+import com.marya.controller.ProductController;
+import com.marya.entity.Category;
 import com.marya.entity.Product;
+import com.marya.service.CategoryService;
 import com.marya.service.ProductService;
 import org.primefaces.PrimeFaces;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -15,6 +20,7 @@ import java.util.List;
 
 @Named
 @ViewScoped
+@Component
 public class CrudProductView implements Serializable {
 
     private List<Product> products;
@@ -23,8 +29,10 @@ public class CrudProductView implements Serializable {
 
     private List<Product> selectedProducts;
 
-    @Inject
+    @Autowired
     private ProductService productService;
+    @Autowired
+    private CategoryService categoryService;
 
     @PostConstruct
     public void init() {
@@ -64,7 +72,11 @@ public class CrudProductView implements Serializable {
 //        else {
 //            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Product Updated"));
 //        }
-
+        Category category = new Category();
+        category.setName("category1");
+        category = categoryService.create(category);
+        this.selectedProduct.setCategory(category);
+        productService.create(this.selectedProduct);
         PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }

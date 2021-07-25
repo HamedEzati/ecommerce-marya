@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -27,8 +28,8 @@ import javax.sql.DataSource;
 @SpringBootApplication
 @Configuration
 @ComponentScan("com.marya.*")
-//@EnableJpaRepositories("com.marya.repository")
-//@EntityScan("tr.com.melihhilmiuludag.student.proj.domain.entities")
+@EnableJpaRepositories("com.marya.repository")
+@EntityScan("com.marya.entity")
 @EnableTransactionManagement
 @EnableAsync
 //@Slf4j

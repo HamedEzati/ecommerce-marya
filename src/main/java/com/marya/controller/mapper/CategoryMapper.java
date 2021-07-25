@@ -4,14 +4,25 @@ import com.marya.controller.dto.CategoryInputModel;
 import com.marya.controller.dto.CategoryOutputModel;
 import com.marya.entity.Category;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper
 public interface CategoryMapper {
 
     CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 
-    CategoryOutputModel categoryToCategoryOutputModel(Category category);
+    default CategoryOutputModel categoryToCategoryOutputModel(Category category) {
+        CategoryOutputModel categoryOutputModel = new CategoryOutputModel();
+        categoryOutputModel.setId(category.getId());
+        categoryOutputModel.setName(category.getName());
+        List<Long> subCategories = category.getSubcategories().stream().map(category1 -> category1.getId()).collect(Collectors.toList());
+        categoryOutputModel.setSubcategories(subCategories);
+        return categoryOutputModel;
+    }
 
     Category categoryInputModelToCategory(CategoryInputModel categoryInputModel);
 }

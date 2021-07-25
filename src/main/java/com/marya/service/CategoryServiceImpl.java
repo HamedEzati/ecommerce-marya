@@ -56,4 +56,9 @@ public class CategoryServiceImpl implements CategoryService {
             return Optional.empty();
         else return categoryRepository.findById(id);
     }
+
+    @Override
+    public List<Category> getParents() {
+        return categoryRepository.findAllByParent(null);
+    }
 }

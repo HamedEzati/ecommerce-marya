@@ -6,11 +6,15 @@ import com.marya.entity.Category;
 import com.marya.service.CategoryService;
 import org.springframework.stereotype.Component;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@ManagedBean
+@RequestScoped
 @Component
-public class CategoryPublicController {
+public class CategoryPublicController implements Serializable {
 
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
@@ -20,13 +24,17 @@ public class CategoryPublicController {
         this.categoryMapper = CategoryMapper.INSTANCE;
     }
 
-    private CategoryOutputModel get(Long id){
+    public CategoryOutputModel get(Long id){
         Category category = categoryService.getById(id);
         return categoryMapper.categoryToCategoryOutputModel(category);
     }
 
-    private List<CategoryOutputModel> getAll(){
+    public List<CategoryOutputModel> getAll(){
         return categoryService.getAll().stream().map(categoryMapper::categoryToCategoryOutputModel).collect(Collectors.toList());
+    }
+
+    public List<CategoryOutputModel> getParents(){
+        return categoryService.getParents().stream().map(categoryMapper::categoryToCategoryOutputModel).collect(Collectors.toList());
     }
 
 }

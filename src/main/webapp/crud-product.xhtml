@@ -1,34 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">-->
-<f:view xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:p="http://primefaces.org/ui"
->
-
-    <!--<html-->
-    <!--        xmlns="http://www.w3.org/1999/xhtml"-->
-    <!--      xmlns:h="http://java.sun.com/jsf/html"-->
-    <!--      xmlns:f="http://java.sun.com/jsf/core"-->
-    <!--      xmlns:p="http://primefaces.org/ui">-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>com.marya</title>
         <!--    <link rel="stylesheet" href="${request.contextPath}/WEB-INF/layouts/css/bootstrap.css" type="text/css"/>-->
     </h:head>
-    <style type="text/css">
-        .ui-panel, div.ui-state-hover {
-            margin: 10px;
-            width:200px;
-        }
-
-        .ui-dashboard-column {
-            width:220px;
-        }
-    </style>
     <h:body>
 
         <h:form id="form">
-            <div id="card crud-demo">
+            <div class="card crud-demo">
                 <p:growl id="messages" showDetail="true"/>
 
                 <p:toolbar>
@@ -111,7 +93,7 @@
                             <f:setPropertyActionListener value="#{product}" target="#{crudProductView.selectedProduct}"/>
                             <p:resetInput target=":form:manage-product-content"/>
                         </p:commandButton>
-                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                        <p:commandButton styleClass="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
                                          oncomplete="PF('deleteProductDialog').show()">
                             <f:setPropertyActionListener value="#{product}" target="#{crudProductView.selectedProduct}"/>
                         </p:commandButton>
@@ -121,11 +103,11 @@
 
                 <p:dialog header="Product Details" showEffect="fade" modal="true"
                           widgetVar="manageProductDialog" responsive="true">
-                    <p:outputPanel id="manage-product-content" class="ui-fluid">
+                    <p:outputPanel id="manage-product-content" styleClass="ui-fluid">
                         <p:outputPanel rendered="#{not empty crudProductView.selectedProduct}">
-                            <p:graphicImage name="images/product/#{crudProductView.selectedProduct.image}" library="demo"
-                                            styleClass="product-image"
-                                            rendered="#{not empty crudProductView.selectedProduct.image}"/>
+<!--                            <p:graphicImage name="images/product/#{crudProductView.selectedProduct.image}" library="demo"-->
+<!--                                            styleClass="product-image"-->
+<!--                                            rendered="#{not empty crudProductView.selectedProduct.image}"/>-->
                             <div class="p-field">
                                 <p:outputLabel for="name">Name</p:outputLabel>
                                 <p:inputText id="name" value="#{crudProductView.selectedProduct.name}" required="true"/>
@@ -163,7 +145,7 @@
                         <p:commandButton value="Save" icon="pi pi-check" actionListener="#{crudProductView.saveProduct}"
                                          update="manage-product-content" process="manage-product-content @this"/>
                         <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
-                                         class="ui-button-secondary"/>
+                                         styleClass="ui-button-secondary"/>
                     </f:facet>
                 </p:dialog>
 
@@ -188,4 +170,4 @@
 
 
     <!--</html>-->
-</f:view>
+</html>

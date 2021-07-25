@@ -19,4 +19,6 @@ public interface CategoryService {
 
     Optional<Category> getOptionalById(Long id);
 
+    List<Category> getParents();
+
 }
