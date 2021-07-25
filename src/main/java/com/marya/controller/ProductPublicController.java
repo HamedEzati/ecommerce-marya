@@ -9,6 +9,13 @@ import org.primefaces.model.TreeNode;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@ManagedBean
+@RequestScoped
 @Component
 public class ProductPublicController {
 
@@ -20,17 +27,17 @@ public class ProductPublicController {
         this.productMapper = ProductMapper.INSTANCE;
     }
 
-    private ProductOutputModel get(Long id){
+    public ProductOutputModel get(Long id){
         Product product = productService.getById(id);
         return productMapper.productToProductOutputModel(product);
     }
 
-    private Page<ProductOutputModel> getAll(PageQueryParams pageQueryParams){
-        return productService.getAll(pageQueryParams).map(productMapper::productToProductOutputModel);
+    public List<ProductOutputModel> getAll(){
+        return productService.getAll().stream().map(productMapper::productToProductOutputModel).collect(Collectors.toList());
     }
 
-    private Page<ProductOutputModel> getAllByCategoryId(PageQueryParams pageQueryParams, Long categoryId){
-        return productService.getAllByCategoryId(pageQueryParams, categoryId).map(productMapper::productToProductOutputModel);
+    public List<ProductOutputModel> getAllByCategoryId(Long categoryId){
+        return productService.getAllByCategoryId(categoryId).stream().map(productMapper::productToProductOutputModel).collect(Collectors.toList());
     }
 
 }

@@ -36,91 +36,33 @@
             </li>
         </ui:repeat>
     </ul>
-    <div id="menu">
-        <p:menubar>
-            <!--           <ui:repeat value="#{categoryPublicController.categories}" var="category">-->
-            <!--                   <p:submenu label="#{category.name}"/>-->
-            <!--           </ui:repeat>-->
-            <p:submenu label="Home"/>
-            <p:submenu label="Category"/>
 
-            <f:facet name="options">
-
-                <p:button id="login" value="login" icon="pi pi-fw pi-sign-in" styleClass="ui-button-info"/>
-            </f:facet>
-
-        </p:menubar>
+    <div class="product-list-container">
+        <div class="product-box" style="width: 100px">
+            <ui:repeat value="#{productPublicController.all}" var="product">
+                <c:set var="productCategory" value="#{categoryPublicController.get(product.categoryId)}"/>
+                <p class="name">#{product.name}</p>
+                <p class="product-category">#{productCategory.name}</p>
+                <p class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>
+                <p class="description">#{product.description}</p>
+                <p class="price">#{product.price}</p>
+                <p class="quantity">#{product.quantity}</p>
+                <button type="button" onclick="addProductToCard(#{product.id})">add</button>
+            </ui:repeat>
+        </div>
     </div>
-    <div class="product card">
-        <h:form id="form">
-            <p:dataView var="product" value="#{dataGridView.products}" rows="12" paginator="true"
-                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                        gridIcon="pi pi-th-large" listIcon="pi pi-bars"
-                        layout="grid" gridRowStyleClass="p-lg-6 p-xl-4" flex="true">
 
-                <p:dataViewGridItem>
-                    <div class="product-grid-item card border-1">
-                        <div class="product-grid-item-top">
-                            <div>
-                                <i class="pi pi-tag product-category-icon"/>
-                                <span class="product-category">#{product.category}</span>
-                            </div>
-                            <span class="product-badge status-#{product.inventoryStatus.name().toLowerCase()}">#{product.inventoryStatus.text}</span>
-                        </div>
-                        <div class="product-grid-item-content">
-                            <p:graphicImage name="images/product/#{product.image}" library="demo"/>
-                            <div class="product-name">#{product.name}</div>
-                            <div class="product-description">#{product.description}</div>
-                            <p:rating readonly="true" value="#{product.rating}"/>
-                        </div>
-                        <div class="product-grid-item-bottom">
-                            <h:outputText value="#{product.price}" styleClass="product-price">
-                                <f:convertNumber currencySymbol="$" type="currency"/>
-                            </h:outputText>
-                            <p:commandButton type="button"
-                                             value="Add To Cart"
-                                             icon="pi pi-shopping-cart"
-                                             disabled="#{product.inventoryStatus == 'OUTOFSTOCK'}">
-                            </p:commandButton>
-                        </div>
-                    </div>
-                </p:dataViewGridItem>
-
-                <p:dataViewListItem>
-                    <div class="product-list-item">
-                        <p:graphicImage name="demo/images/product/#{product.image}"/>
-                        <div class="product-list-detail">
-                            <div class="product-name">#{product.name}</div>
-                            <div class="product-description">#{product.description}</div>
-                            <p:rating readonly="true" value="#{product.rating}"/>
-                            <i class="pi pi-tag product-category-icon"/><span
-                                class="product-category">#{product.category}</span>
-                        </div>
-                        <div class="product-list-action">
-                            <h:outputText value="#{product.price}" styleClass="product-price">
-                                <f:convertNumber currencySymbol="$" type="currency"/>
-                            </h:outputText>
-                            <p:commandButton type="button"
-                                             value="Add To Cart"
-                                             icon="pi pi-shopping-cart"
-                                             disabled="#{product.inventoryStatus == 'OUTOFSTOCK'}">
-                            </p:commandButton>
-                            <span class="product-badge status-#{product.inventoryStatus.name().toLowerCase()}">#{product.inventoryStatus.text}</span>
-                        </div>
-                    </div>
-                </p:dataViewListItem>
-            </p:dataView>
-
-        </h:form>
-    </div>
 </h:body>
 <script>
-    document.querySelector(#homeBtn).addEventListener('click', (e) => {
-        location.assign('index.xhtml')
-    })
-    document.querySelector(#login).addEventListener('click', (e) => {
-        e.preventDefault()
-        location.assign('dashbord.xhtmll')
-    })
+     function addProductToCard(productId){
+         card = window.localStorage.getItem('card');
+         if (card == null){
+             window.localStorage.setItem('card', productId);
+
+         }else {
+             window.localStorage.setItem('card', card + "," + productId);
+         }
+         console.log(window.localStorage.getItem('card'));
+     }
 </script>
 </html>

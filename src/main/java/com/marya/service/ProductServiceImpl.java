@@ -8,6 +8,7 @@ import com.marya.service.model.PageQueryParams;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -48,12 +49,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> getAll(PageQueryParams pageQueryParams) {
-        return productRepository.findAll(Utils.getPageableFromPageQueryParams(pageQueryParams));
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
 
     @Override
-    public Page<Product> getAllByCategoryId(PageQueryParams pageQueryParams, Long categoryId) {
-        return productRepository.findAllByCategoryId(Utils.getPageableFromPageQueryParams(pageQueryParams), categoryId);
+    public List<Product> getAllByCategoryId(Long categoryId) {
+        return productRepository.findAllByCategoryId(categoryId);
     }
 }
