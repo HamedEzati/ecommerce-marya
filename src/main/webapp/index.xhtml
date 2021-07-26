@@ -124,6 +124,13 @@
         background-color: #4e555b!important;
         background: none;
         border-color: #4e555b;
+        border:2px;
+    }
+    #cat-Name-H2{
+       color: #4e555b;
+        width: 20px;
+        border-color: darkgrey;
+        border: 1px solid darkgrey;
     }
 </style>
 <h:body>
@@ -180,7 +187,7 @@
 <!--        </div>-->
 <!--    </div>-->
     <ui:repeat value="#{categoryPublicController.all}" var="category">
-        <h4>#{category.name}</h4>
+        <h2 id="cat-Name-H2">#{category.name}</h2>
         <p:carousel value="#{productPublicController.all}" var="product" responsive="true" >
             <div class="product">
                 <div  id ='detailProduct' class="product-grid-item p-p-5">
