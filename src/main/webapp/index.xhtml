@@ -179,7 +179,8 @@
 <!--            </ui:repeat>-->
 <!--        </div>-->
 <!--    </div>-->
-    <ui:repeat value="#{categoryPublicController.all}" var="">
+    <ui:repeat value="#{categoryPublicController.all}" var="category">
+        <h4>#{category.name}</h4>
         <p:carousel value="#{productPublicController.all}" var="product" responsive="true" >
             <div class="product">
                 <div  id ='detailProduct' class="product-grid-item p-p-5">
