@@ -80,102 +80,51 @@
        height: 100%;
        border-radius: 10px;
    }
-/**/
-    * {box-sizing:border-box}
 
-    /* Slideshow container */
-    .slideshow-container {
-        max-width: 1000px;
-        position: relative;
-        margin: auto;
+.product{
+        border: 1px solid darkgray;
+        border-radius: 10px;
+        margin: 13px;
+
+}
+    .product-name{
+        display: block;
+        /*float: right*/
+    ;
     }
-
-    /* Hide the images by default */
-    .mySlides {
-        display: none;
+    #detailProduct>img{
+        border-radius: 20px;
     }
+    #detailProduct>*{
+        display: inline;
+        /*float: right;*/
+        justify-content: center;
+        align-items: center;
+        text-align: center;
 
-
-    .prev, .next {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        width: auto;
-        margin-top: -22px;
-        padding: 16px;
-        color: white;
-        font-weight: bold;
-        font-size: 18px;
-        transition: 0.6s ease;
-        border-radius: 0 3px 3px 0;
-        user-select: none;
     }
-
-    /* Position the "next button" to the right */
-    .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
-    }
-
-    /* On hover, add a black background color with a little bit see-through */
-    .prev:hover, .next:hover {
-        background-color: rgba(0,0,0,0.8);
-    }
-
-    /* Caption text */
-    .text {
-        color: #f2f2f2;
-        font-size: 15px;
-        padding: 8px 12px;
-        position: absolute;
-        bottom: 8px;
-        width: 100%;
+    #detailProduct> button{
+        display: inline;
+        /*float: right;*/
+        justify-content: center;
+        align-items: center;
         text-align: center;
     }
-
-    /* Number text (1/3 etc) */
-    .numbertext {
-        color: #f2f2f2;
-        font-size: 12px;
-        padding: 8px 12px;
-        position: absolute;
-        top: 0;
+    #priceDetail>*{
+        text-align: center;
+        display: block;
     }
-
-    /* The dots/bullets/indicators */
-    .dot {
-        cursor: pointer;
-        height: 15px;
-        width: 15px;
-        margin: 0 2px;
-        background-color: #bbb;
-        border-radius: 50%;
-        display: inline-block;
-        transition: background-color 0.6s ease;
+    #productImge{
+        border-radius: 20px;
     }
-
-    .active, .dot:hover {
-        background-color: #717171;
+    .ui-carousel .ui-carousel-viewport .ui-carousel-items .ui-carousel-item{
+        width: 410px!important;
     }
-
-    /* Fading animation */
-    .fade {
-        -webkit-animation-name: fade;
-        -webkit-animation-duration: 1.5s;
-        animation-name: fade;
-        animation-duration: 1.5s;
+    .ui-widget-header{
+        background-color: #4e555b!important;
+        background: none;
+        border-color: #4e555b;
     }
-
-    @-webkit-keyframes fade {
-        from {opacity: .4}
-        to {opacity: 1}
-    }
-
-    @keyframes fade {
-        from {opacity: .4}
-        to {opacity: 1}
-    }
-/*    */
 </style>
 <h:body>
     <nav id="nav">
@@ -215,76 +164,160 @@
             </li>
         </ui:repeat>
     </ul>
-    <!-- Slideshow container -->
-    <div class="slideshow-container">
 
-        <!-- Full-width images with number and caption text -->
-        <div class="mySlides fade">
-            <div class="numbertext">1 / 3</div>
-            <img src="logo.jpeg.jpg" style="width:100%">
-            <div class="text">Caption Text</div>
-        </div>
+<!--    <div class="product-list-container">-->
+<!--            <div class="product-box" style="width: 100px">-->
+<!--            <ui:repeat value="#{productPublicController.all}" var="product">-->
+<!--                <c:set var="productCategory" value="#{categoryPublicController.get(product.categoryId)}"/>-->
+<!--                <p class="name">#{product.name}</p>-->
+<!--                <p class="product-category">#{productCategory.name}</p>-->
+<!--                <p class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>-->
+<!--                <p class="description">#{product.description}</p>-->
+<!--                <p class="price">#{product.price}</p>-->
+<!--                <p class="quantity">#{product.quantity}</p>-->
+<!--                <button type="button" onclick="addProductToCard(#{product.id})">add</button>-->
+<!--            </ui:repeat>-->
+<!--        </div>-->
+<!--    </div>-->
+    <ui:repeat value="#{categoryPublicController.all}" var="">
+        <p:carousel value="#{productPublicController.all}" var="product" responsive="true" >
+            <div class="product">
+                <div  id ='detailProduct' class="product-grid-item p-p-5">
+                    <div  class="product-grid-item-top">
+                        <div>
+                            <i class=" product-category-icon"/>
+                            <span class="product-category">#{productCategory.name}</span>
+                        </div>
+                        <!--                <span class="product-badge status-#{product.inventoryStatus.name().toLowerCase()}">#{product.inventoryStatus.text}</span>-->
+                    </div>
+                    <div class="product-grid-item-content">
+                        <p id = 'productImge' class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>
+                        <div class="product-name">#{product.name}</div>
 
-        <div class="mySlides fade">
-            <div class="numbertext">2 / 3</div>
-            <img src="img2.jpg" style="width:100%">
-            <div class="text">Caption Two</div>
-        </div>
+                    </div>
+                    <div>
+                        <div class="product-description">#{product.description}</div>
+                    </div>
+                    <div id = 'priceDetail' class="product-grid-item-bottom">
+                        <h:outputText value="#{product.price}" styleClass="product-price">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                            <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
+                        </h:outputText>
+                        <div>
+                            <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
+                        </div>
 
-        <div class="mySlides fade">
-            <div class="numbertext">3 / 3</div>
-            <img src="img3.jpg" style="width:100%">
-            <div class="text">Caption Three</div>
-        </div>
+                    </div>
+                </div>
+            </div>
+        </p:carousel>
+    </ui:repeat>
+<!--    <p:carousel value="#{productPublicController.all}" var="product" responsive="true" >-->
+<!--    <div class="product">-->
+<!--        <div  id ='detailProduct' class="product-grid-item p-p-5">-->
+<!--            <div  class="product-grid-item-top">-->
+<!--                <div>-->
+<!--                    <i class=" product-category-icon"/>-->
+<!--                    <span class="product-category">#{productCategory.name}</span>-->
+<!--                </div>-->
+<!--&lt;!&ndash;                <span class="product-badge status-#{product.inventoryStatus.name().toLowerCase()}">#{product.inventoryStatus.text}</span>&ndash;&gt;-->
+<!--            </div>-->
+<!--            <div class="product-grid-item-content">-->
+<!--                <p id = 'productImge' class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>-->
+<!--                <div class="product-name">#{product.name}</div>-->
 
-        <!-- Next and previous buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
-    <br>
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div class="product-description">#{product.description}</div>-->
+<!--            </div>-->
+<!--            <div id = 'priceDetail' class="product-grid-item-bottom">-->
+<!--                <h:outputText value="#{product.price}" styleClass="product-price">-->
+<!--                    <f:convertNumber currencySymbol="$" type="currency"/>-->
+<!--                    <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>-->
+<!--                </h:outputText>-->
+<!--                <div>-->
+<!--                    <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>-->
+<!--                </div>-->
 
-    <!-- The dots/circles -->
-    <div style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    </p:carousel>-->
+<!--    <p:carousel value="#{productPublicController.all}" var="product" responsive="true" >-->
+<!--        <div class="product">-->
+<!--            <div  id ='detailProduct' class="product-grid-item p-p-5">-->
+<!--                <div  class="product-grid-item-top">-->
+<!--                    <div>-->
+<!--                        <i class=" product-category-icon"/>-->
+<!--                        <span class="product-category">#{productCategory.name}</span>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash;                <span class="product-badge status-#{product.inventoryStatus.name().toLowerCase()}">#{product.inventoryStatus.text}</span>&ndash;&gt;-->
+<!--                </div>-->
+<!--                <div class="product-grid-item-content">-->
+<!--                    <p id = 'productImge' class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>-->
+<!--                    <div class="product-name">#{product.name}</div>-->
+
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <div class="product-description">#{product.description}</div>-->
+<!--                </div>-->
+<!--                <div id = 'priceDetail' class="product-grid-item-bottom">-->
+<!--                    <h:outputText value="#{product.price}" styleClass="product-price">-->
+<!--                        <f:convertNumber currencySymbol="$" type="currency"/>-->
+<!--                        <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>-->
+<!--                    </h:outputText>-->
+<!--                    <div>-->
+<!--                        <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </p:carousel>-->
+
+<!--    <div class="product card">-->
+<!--        <h:form>-->
+<!--            <p:dataScroller value="#{productPublicController.all}" var="product" chunkSize="10" mode="inline"-->
+<!--                            scrollHeight="500">-->
+<!--                <f:facet name="header">-->
+<!--                    Scroll Down to Load More Products-->
+<!--                </f:facet>-->
+
+<!--                <div class="product">-->
+<!--                    <div class="product-list-item p-p-5">-->
+<!--                        <p class="image"><img src="${product.imageUrl}" alt="" style="width: 10%"/></p>-->
+<!--                        <div class="product-list-detail">-->
+<!--                            <div class="product-name">#{product.name}</div>-->
+<!--                            <div class="product-description">#{product.description}</div>-->
+
+<!--                            <i class="pi pi-tag product-category-icon"/><span-->
+<!--                                class="product-category">#{productCategory.name}</span>-->
+<!--                        </div>-->
+<!--                        <div class="product-list-action">-->
+<!--                            <h:outputText value="#{product.price}" styleClass="product-price">-->
+<!--                                <f:convertNumber currencySymbol="$" type="currency"/>-->
+<!--                            </h:outputText>-->
+<!--                            <button type="button" onclick="addProductToCard(#{product.id})">add</button>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </p:dataScroller>-->
+<!--        </h:form>-->
+<!--    </div>-->
 </h:body>
 <script>
-    document.querySelector(#homeBtn).addEventListener('click', (e) => {
-        location.assign('index.xhtml')
-    })
-    document.querySelector(#login).addEventListener('click', (e) => {
-        e.preventDefault()
-        location.assign('dashbord.xhtmll')
-    })
-    var slideIndex = 1;
-    showSlides(slideIndex);
 
-    // Next/previous controls
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
+     function addProductToCard(productId){
+         card = window.localStorage.getItem('card');
+         if (card == null){
+             window.localStorage.setItem('card', productId);
 
-    // Thumbnail image controls
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
+         }else {
+             window.localStorage.setItem('card', card + "," + productId);
+         }
+         console.log(window.localStorage.getItem('card'));
+     }
 
-    function showSlides(n) {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = slides.length}
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex-1].style.display = "block";
-        dots[slideIndex-1].className += " active";
-    }
 </script>
 </html>

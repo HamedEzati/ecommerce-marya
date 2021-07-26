@@ -13,10 +13,11 @@ public class Product extends BaseEntity {
 
     private String name;
     private String description;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
     private double price;
     private int quantity;
+    private String imageUrl;
 
 }
