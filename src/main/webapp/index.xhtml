@@ -9,9 +9,13 @@
 
 </h:head>
 <style>
+    html{
+             scroll-behavior: smooth;
+         }
     a{
         text-decoration: none;
         color: black;
+        scroll-behavior: smooth;
     }
    #catStyle{
        display: flex;
@@ -71,7 +75,6 @@
    #logo{
        width: 160px;
        height: 70px;
-
        float: right;
        box-shadow:5px 10px 10px rgba(99,99,99,0.1);
    }
@@ -90,8 +93,10 @@
     .product-name{
         display: block;
         /*float: right*/
+        margin-bottom: 5px;
     ;
     }
+
     #detailProduct>img{
         border-radius: 20px;
     }
@@ -101,7 +106,21 @@
         justify-content: center;
         align-items: center;
         text-align: center;
+        line-break: auto;
 
+    }
+    .product-description{
+        line-break: auto;
+        opacity: 0.4;
+        margin-bottom: 5px;
+        padding: 10px;
+    }
+    .product-description:hover{
+
+        opacity: 1;
+    }
+    .product-price{
+        padding: 10px;
     }
     #detailProduct> button{
         display: inline;
@@ -113,12 +132,26 @@
     #priceDetail>*{
         text-align: center;
         display: block;
+        line-break: auto;
     }
     #productImge{
         border-radius: 20px;
     }
+    #addButton{
+        width: 100%;
+        border-radius: 0px 0px 10px 10px;
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        font-size: 16px;
+    }
+    #addButton:active{
+        background-color: #1c7430;
+    }
     .ui-carousel .ui-carousel-viewport .ui-carousel-items .ui-carousel-item{
-        width: 410px!important;
+        width: 329px!important;
     }
     .ui-widget-header{
         background-color: #4e555b!important;
@@ -126,19 +159,51 @@
         border-color: #4e555b;
         border:2px;
     }
-    #cat-Name-H2{
-       color: #4e555b;
-        width: 20px;
-        border-color: darkgrey;
-        border: 1px solid darkgrey;
+    .cat-Name-H2{
+       box-shadow: 0px 0px 30px 2px darkgrey;
+        width: 100px;
+        padding: 15px;
+        text-align: center;
+        border-radius: 5px;
+        /*border-color: darkgrey;*/
+        font-size: 22px;
+        margin-left: 100px;
+        /*border: 1px solid darkgrey;*/
+        justify-content: center;
+        align-items: center;
+        display: flex;
     }
+    .cat-Name-H2>*{
+        box-shadow: 0px 0px 30px 2px darkgrey;
+        width: 100px;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        /*border-color: darkgrey;*/
+        font-size: 22px;
+        margin-left: 100px;
+        /*border: 1px solid darkgrey;*/
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+    #cart{
+    /*display: block;*/
+        width: 50px;
+        padding: 20px;
+    }
+
 </style>
 <h:body>
     <nav id="nav">
+
         <div id ='logo'>
-
             <img src="logo.jpeg"></img>
+        </div>
+        <div class="cart" style="float: right">
+            <ul>
 
+            </ul>
         </div>
         <ul id = 'navUl'>
             <li>
@@ -152,19 +217,28 @@
             </li>
         </ul>
     </nav>
+    <div id ='slider'>
+<!--        <img src="1.jpg"></img>-->
+        <div>
+<!--            <img style="width: 100% ; height: 400px" src="2.jpg"></img>-->
+        </div>
+        <div>
+            <img style="width: 100% ; height: 400px" src="3.png"></img>
+        </div>
+
+    </div>
     <ul id="catStyle">
         <ui:repeat value="#{categoryPublicController.parents}" var="category">
             <li>
-                <h:link value="#{category.name}">
-                    <f:param name="id" value="#{category.id}"/>
-                </h:link>
+                <h:link value="#{category.name}" fragment ="#{category.name}" />
+<!--                    <f:param name="id" value="#{category.id}"/>-->
+<!--                </h:link>-->
                 <ul id ="subCat">
                     <ui:repeat value="#{category.subcategories}" var="subCategory1Id"
                                rendered="#{not empty category.subcategories}">
                         <li>
                             <c:set var="subCategory1" value="#{categoryPublicController.get(subCategory1Id)}"/>
-                            <h:link style="text-decoration: none" value="#{subCategory1.name}">
-                            </h:link>
+                            <h:link style="text-decoration: none" value=" #{subCategory1.name}`" fragment ="#{subCategory1.name}" />
                         </li>
                     </ui:repeat>
                 </ul>
@@ -187,7 +261,7 @@
 <!--        </div>-->
 <!--    </div>-->
     <ui:repeat value="#{categoryPublicController.all}" var="category">
-        <h2 id="cat-Name-H2">#{category.name}</h2>
+        <h4 class="cat-Name-H2" id="#{category.name}">#{category.name}</h4>
         <p:carousel value="#{productPublicController.all}" var="product" responsive="true" >
             <div class="product">
                 <div  id ='detailProduct' class="product-grid-item p-p-5">
@@ -208,11 +282,11 @@
                     </div>
                     <div id = 'priceDetail' class="product-grid-item-bottom">
                         <h:outputText value="#{product.price}" styleClass="product-price">
-                            <f:convertNumber currencySymbol="$" type="currency"/>
+                            <f:convertNumber currencySymbol="Price :$" type="currency"/>
                             <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
                         </h:outputText>
                         <div>
-                            <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
+                            <button id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
                         </div>
 
                     </div>
@@ -220,112 +294,40 @@
             </div>
         </p:carousel>
     </ui:repeat>
-<!--    <p:carousel value="#{productPublicController.all}" var="product" responsive="true" >-->
-<!--    <div class="product">-->
-<!--        <div  id ='detailProduct' class="product-grid-item p-p-5">-->
-<!--            <div  class="product-grid-item-top">-->
-<!--                <div>-->
-<!--                    <i class=" product-category-icon"/>-->
-<!--                    <span class="product-category">#{productCategory.name}</span>-->
-<!--                </div>-->
-<!--&lt;!&ndash;                <span class="product-badge status-#{product.inventoryStatus.name().toLowerCase()}">#{product.inventoryStatus.text}</span>&ndash;&gt;-->
-<!--            </div>-->
-<!--            <div class="product-grid-item-content">-->
-<!--                <p id = 'productImge' class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>-->
-<!--                <div class="product-name">#{product.name}</div>-->
 
-<!--            </div>-->
-<!--            <div>-->
-<!--                <div class="product-description">#{product.description}</div>-->
-<!--            </div>-->
-<!--            <div id = 'priceDetail' class="product-grid-item-bottom">-->
-<!--                <h:outputText value="#{product.price}" styleClass="product-price">-->
-<!--                    <f:convertNumber currencySymbol="$" type="currency"/>-->
-<!--                    <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>-->
-<!--                </h:outputText>-->
-<!--                <div>-->
-<!--                    <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>-->
-<!--                </div>-->
-
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    </p:carousel>-->
-<!--    <p:carousel value="#{productPublicController.all}" var="product" responsive="true" >-->
-<!--        <div class="product">-->
-<!--            <div  id ='detailProduct' class="product-grid-item p-p-5">-->
-<!--                <div  class="product-grid-item-top">-->
-<!--                    <div>-->
-<!--                        <i class=" product-category-icon"/>-->
-<!--                        <span class="product-category">#{productCategory.name}</span>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash;                <span class="product-badge status-#{product.inventoryStatus.name().toLowerCase()}">#{product.inventoryStatus.text}</span>&ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="product-grid-item-content">-->
-<!--                    <p id = 'productImge' class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>-->
-<!--                    <div class="product-name">#{product.name}</div>-->
-
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <div class="product-description">#{product.description}</div>-->
-<!--                </div>-->
-<!--                <div id = 'priceDetail' class="product-grid-item-bottom">-->
-<!--                    <h:outputText value="#{product.price}" styleClass="product-price">-->
-<!--                        <f:convertNumber currencySymbol="$" type="currency"/>-->
-<!--                        <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>-->
-<!--                    </h:outputText>-->
-<!--                    <div>-->
-<!--                        <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </p:carousel>-->
-
-<!--    <div class="product card">-->
-<!--        <h:form>-->
-<!--            <p:dataScroller value="#{productPublicController.all}" var="product" chunkSize="10" mode="inline"-->
-<!--                            scrollHeight="500">-->
-<!--                <f:facet name="header">-->
-<!--                    Scroll Down to Load More Products-->
-<!--                </f:facet>-->
-
-<!--                <div class="product">-->
-<!--                    <div class="product-list-item p-p-5">-->
-<!--                        <p class="image"><img src="${product.imageUrl}" alt="" style="width: 10%"/></p>-->
-<!--                        <div class="product-list-detail">-->
-<!--                            <div class="product-name">#{product.name}</div>-->
-<!--                            <div class="product-description">#{product.description}</div>-->
-
-<!--                            <i class="pi pi-tag product-category-icon"/><span-->
-<!--                                class="product-category">#{productCategory.name}</span>-->
-<!--                        </div>-->
-<!--                        <div class="product-list-action">-->
-<!--                            <h:outputText value="#{product.price}" styleClass="product-price">-->
-<!--                                <f:convertNumber currencySymbol="$" type="currency"/>-->
-<!--                            </h:outputText>-->
-<!--                            <button type="button" onclick="addProductToCard(#{product.id})">add</button>-->
-
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </p:dataScroller>-->
-<!--        </h:form>-->
-<!--    </div>-->
 </h:body>
 <script>
 
      function addProductToCard(productId){
-         card = window.localStorage.getItem('card');
+        let card = localStorage.getItem('card');
          if (card == null){
-             window.localStorage.setItem('card', productId);
+             localStorage.setItem('card', productId);
 
          }else {
-             window.localStorage.setItem('card', card + "," + productId);
+             localStorage.setItem('card', card + "," + productId);
          }
-         console.log(window.localStorage.getItem('card'));
+         console.log(localStorage.getItem('card'));
      }
+     function cartEl(){
+         const getProduct = localStorage.getItem('card')
+         let productArry = {};
+         if(getProduct == null){
+         }else if(getProduct.length > 0){
+                 if( !getProduct.includes(',')){
+                     productArry = {getProduct}
+                    }
+             if( getProduct.includes(',')){
+                 productArry = getProduct.split(",")
+             }
+         }
+
+         let cartEl =  document.createElement('li')
+         cartEl.textContent += productArry
+         let carts = document.querySelector('.cart').append(cartEl)
+         console.log(productArry)
+
+     }
+     cartEl()
 
 </script>
 </html>
