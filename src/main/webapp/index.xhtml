@@ -148,16 +148,15 @@
     <ul id="catStyle">
         <ui:repeat value="#{categoryPublicController.parents}" var="category">
             <li>
-                <h:link value="#{category.name}">
-                    <f:param name="id" value="#{category.id}"/>
-                </h:link>
+                <h:link value="#{category.name}" fragment ="#{category.name}" />
+<!--                    <f:param name="id" value="#{category.id}"/>-->
+<!--                </h:link>-->
                 <ul id ="subCat">
                     <ui:repeat value="#{category.subcategories}" var="subCategory1Id"
                                rendered="#{not empty category.subcategories}">
                         <li>
                             <c:set var="subCategory1" value="#{categoryPublicController.get(subCategory1Id)}"/>
-                            <h:link style="text-decoration: none" value="#{subCategory1.name}">
-                            </h:link>
+                            <h:link style="text-decoration: none" value="#{subCategory1.name}" fragment ="#{subCategory1.name}" />
                         </li>
                     </ui:repeat>
                 </ul>
@@ -180,7 +179,7 @@
 <!--        </div>-->
 <!--    </div>-->
     <ui:repeat value="#{categoryPublicController.all}" var="category">
-        <h4>#{category.name}</h4>
+        <h4 id="#{category.name}">#{category.name}</h4>
         <p:carousel value="#{productPublicController.all}" var="product" responsive="true" >
             <div class="product">
                 <div  id ='detailProduct' class="product-grid-item p-p-5">
