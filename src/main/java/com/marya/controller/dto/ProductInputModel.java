@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ProductInputModel {
 
+    private Long id;
     private String name;
     private String description;
     private Long categoryId;

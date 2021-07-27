@@ -5,6 +5,7 @@ import com.marya.controller.dto.CategoryOutputModel;
 import com.marya.controller.mapper.CategoryMapper;
 import com.marya.entity.Category;
 import com.marya.service.CategoryService;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -23,12 +24,13 @@ import java.util.stream.Collectors;
 @Component
 @Named
 @ViewScoped
+@Data
 public class CategoryPublicController implements Serializable {
 
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
 
-
+    private List<CategoryOutputModel> allCategory;
     private CategoryInputModel categoryInputModel = new CategoryInputModel();
     private CategoryOutputModel categoryOutputModel = new CategoryOutputModel();
 
@@ -37,13 +39,15 @@ public class CategoryPublicController implements Serializable {
         this.categoryMapper = CategoryMapper.INSTANCE;
     }
 
-    public CategoryOutputModel get(Long id) {
-        Category category = categoryService.getById(id);
-        return categoryMapper.categoryToCategoryOutputModel(category);
-    }
+
 
     public List<CategoryOutputModel> getAll() {
         return categoryService.getAll().stream().map(categoryMapper::categoryToCategoryOutputModel).collect(Collectors.toList());
+    }
+
+    public List<CategoryOutputModel> getAllCategory() {
+        allCategory = categoryService.getAll().stream().map(categoryMapper::categoryToCategoryOutputModel).collect(Collectors.toList());
+        return allCategory;
     }
 
     public List<CategoryOutputModel> getParents() {
@@ -58,7 +62,8 @@ public class CategoryPublicController implements Serializable {
         return categoryMapper.categoryToCategoryOutputModel(category);
     }
 
-    public void update(CategoryOutputModel categoryOutputModel) {
+    public void update() {
+        allCategory.forEach(categoryOutputModel -> {
             Category category = new Category();
             if (Objects.nonNull(categoryOutputModel.getParentId())) {
                 Category parent = categoryService.getOptionalById(categoryOutputModel.getParentId()).orElseGet(() -> null);
@@ -67,19 +72,14 @@ public class CategoryPublicController implements Serializable {
             category.setId(categoryOutputModel.getId());
             category.setName(categoryOutputModel.getName());
             categoryService.create(category);
+        });
     }
 
-    public void delete(CategoryOutputModel categoryOutputModel) {
-        Category category = categoryService.getById(categoryOutputModel.getId());
-        categoryService.delete(category);
+    public CategoryOutputModel get(Long id){
+        return categoryMapper.categoryToCategoryOutputModel(categoryService.getById(id));
     }
 
-    public CategoryInputModel getCategoryInputModel() {
-        return categoryInputModel;
+    public void delete(Long id) {
+        categoryService.delete(id);
     }
-
-    public void setCategoryInputModel(CategoryInputModel categoryInputModel) {
-        this.categoryInputModel = categoryInputModel;
-    }
-
 }
