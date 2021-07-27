@@ -35,6 +35,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long id) {
+        if (Objects.isNull(id))
+            throw new NotFoundException("category not found.");
         categoryRepository.deleteById(id);
     }
 
@@ -46,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getById(Long id) {
         if (Objects.isNull(id))
-            throw new NotFoundException("category not found.");
+            return new Category();
         else return categoryRepository.findById(id).orElseThrow(() -> new NotFoundException("category not found."));
     }
 

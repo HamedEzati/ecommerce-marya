@@ -16,5 +16,7 @@ public interface ProductMapper {
     @Mapping(source = "product.category.id", target = "categoryId")
     ProductOutputModel productToProductOutputModel(Product product);
 
-    Product productInputModelAndIdToProduct(ProductInputModel productInputModel, Long id);
+    Product productInputModelToProduct(ProductInputModel productInputModel, Long id);
+
+    Product productOutputToProduct(ProductOutputModel productOutputModel);
 }

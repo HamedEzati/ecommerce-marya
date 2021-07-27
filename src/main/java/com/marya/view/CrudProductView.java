@@ -1,6 +1,5 @@
 package com.marya.view;
 
-import com.marya.controller.ProductController;
 import com.marya.entity.Category;
 import com.marya.entity.Product;
 import com.marya.service.CategoryService;

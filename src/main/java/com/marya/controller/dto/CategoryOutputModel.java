@@ -12,5 +12,6 @@ public class CategoryOutputModel {
     private Long id;
     private String name;
     private List<Long> subcategories;
+    private Long parentId;
 
 }
