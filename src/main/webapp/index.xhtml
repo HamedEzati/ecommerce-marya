@@ -191,6 +191,7 @@
     /*display: block;*/
         width: 50px;
         padding: 20px;
+        font-size: 30px;
     }
 
 </style>
@@ -201,9 +202,8 @@
             <img src="logo.jpeg"></img>
         </div>
         <div class="cart" style="float: right">
-            <ul>
+            &#128722;
 
-            </ul>
         </div>
         <ul id = 'navUl'>
             <li>
@@ -297,7 +297,11 @@
 
 </h:body>
 <script>
+    function myFunction() {
+        location.reload();
+    }
 
+    let cartDiv = document.querySelector(".cart")
      function addProductToCard(productId){
         let card = localStorage.getItem('card');
          if (card == null){
@@ -321,12 +325,21 @@
              }
          }
 
-         let cartEl =  document.createElement('li')
-         cartEl.textContent += productArry
-         let carts = document.querySelector('.cart').append(cartEl)
+         let cartEl =  document.createElement('input')
+         cartEl.value += productArry.length -1
+
+         window.addEventListener('storage',function(e){
+             e.preventDefault();
+             cartEl.innerHTML = e.newValue;
+              myFunction()
+         })
+         let carts = document.querySelector('.cart').prepend(cartEl)
          console.log(productArry)
 
      }
+    document.querySelector('button').addEventListener('click',function(e){
+        cartEl
+    })
      cartEl()
 
 </script>
