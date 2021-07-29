@@ -8,10 +8,24 @@ import com.marya.entity.Product;
 import com.marya.service.CategoryService;
 import com.marya.service.ProductService;
 import lombok.Data;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.file.UploadedFile;
+import org.primefaces.model.file.UploadedFileWrapper;
 import org.springframework.stereotype.Component;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.http.Part;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,10 +39,10 @@ public class ProductPublicController {
     private final ProductService productService;
     private final CategoryService categoryService;
 
+
     private List<ProductOutputModel> allProduct;
     private ProductInputModel productInputModel = new ProductInputModel();
     private ProductOutputModel productOutputModel = new ProductOutputModel();
-
 
     public ProductPublicController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
@@ -74,5 +88,24 @@ public class ProductPublicController {
     public List<ProductOutputModel> getAllByCategoryId(Long categoryId){
         return productService.getAllByCategoryId(categoryId).stream().map(productMapper::productToProductOutputModel).collect(Collectors.toList());
     }
+
+
+    public void exportCsv() throws IOException {
+        try (
+                BufferedWriter writer = Files.newBufferedWriter(Paths.get("./sample.csv"));
+
+                CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
+                        .withHeader("ID", "Name", "Designation", "Company"));
+        ) {
+            csvPrinter.printRecord("1", "Sundar Pichai ♥", "CEO", "Google");
+            csvPrinter.printRecord("2", "Satya Nadella", "CEO", "Microsoft");
+            csvPrinter.printRecord("3", "Tim cook", "CEO", "Apple");
+
+            csvPrinter.printRecord(Arrays.asList("4", "Mark Zuckerberg", "CEO", "Facebook"));
+
+            csvPrinter.flush();
+        }
+    }
+
 
 }

@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
@@ -68,7 +67,7 @@
                 </p:column>
             </p:dataTable>
 
-            <p:commandButton style="float: right" id="save" value="Save" tyleClass="ui-priority-primary"
+            <p:commandButton style="float: right" id="save-category" value="Save" tyleClass="ui-priority-primary"
                              action="#{categoryPublicController.update}" icon="ui-icon-disk" update="@form :categories:categoryList">
                 <f:ajax execute="@form" render="@form"/>
             </p:commandButton>
@@ -76,6 +75,13 @@
     </div>
 
     <div class="crud-product">
+        <div class="card">
+            <h5>Single</h5>
+            <h:form enctype="multipart/form-data">
+                <button onclick="#{productPublicController.exportCsv()}">export</button>
+            </h:form>
+        </div>
+
         <h2>Add New Product</h2>
         <h:form id="add-product">
             <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
@@ -98,6 +104,10 @@
                 <p:outputLabel for="productCategoryId" value="Product CategoryId" />
                 <p:inputText id="productCategoryId" value="#{productPublicController.productInputModel.categoryId}" />
                 <p:message for="productCategoryId" />
+
+                <p:outputLabel for="productImage" value="Product Image" />
+                <p:fileUpload id="productImage" value="#{productPublicController.file}" mode="simple" skinSimple="true"/>
+                <p:message for="productImage" />
 
                 <!--            <p:commandButton update="@form :customers:customerList" value="Add" action="#{categoryController.create}">-->
                 <p:commandButton update="@form :products:productList" value="Add" action="#{productPublicController.create}">
@@ -143,7 +153,7 @@
 
             </p:dataTable>
 
-            <p:commandButton style="float: right" id="save" value="Save" tyleClass="ui-priority-primary"
+            <p:commandButton style="float: right" id="save-profuct" value="Save" tyleClass="ui-priority-primary"
                              action="#{productPublicController.update}" icon="ui-icon-disk" update="@form :products:productList">
                 <f:ajax execute="@form" render="@form"/>
             </p:commandButton>
