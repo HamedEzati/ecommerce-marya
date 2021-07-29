@@ -283,10 +283,10 @@
                     <div id = 'priceDetail' class="product-grid-item-bottom">
                         <h:outputText value="#{product.price}" styleClass="product-price">
                             <f:convertNumber currencySymbol="Price :$" type="currency"/>
-                            <button style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
+                            <button class="bnt" style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
                         </h:outputText>
                         <div>
-                            <button id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
+                            <button class="btn" id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
                         </div>
 
                     </div>
@@ -297,11 +297,11 @@
 
 </h:body>
 <script>
-    function myFunction() {
-        location.reload();
-    }
+function myFunction(){
+    location.reload()
+}
 
-    let cartDiv = document.querySelector(".cart")
+
      function addProductToCard(productId){
         let card = localStorage.getItem('card');
          if (card == null){
@@ -310,37 +310,16 @@
          }else {
              localStorage.setItem('card', card + "," + productId);
          }
-         console.log(localStorage.getItem('card'));
-     }
-     function cartEl(){
-         const getProduct = localStorage.getItem('card')
-         let productArry = {};
-         if(getProduct == null){
-         }else if(getProduct.length > 0){
-                 if( !getProduct.includes(',')){
-                     productArry = {getProduct}
-                    }
-             if( getProduct.includes(',')){
-                 productArry = getProduct.split(",")
-             }
-         }
-
-         let cartEl =  document.createElement('input')
-         cartEl.value += productArry.length -1
-
-         window.addEventListener('storage',function(e){
-             e.preventDefault();
-             cartEl.innerHTML = e.newValue;
-              myFunction()
-         })
-         let carts = document.querySelector('.cart').prepend(cartEl)
-         console.log(productArry)
 
      }
-    document.querySelector('button').addEventListener('click',function(e){
-        cartEl
-    })
-     cartEl()
+     function CreateEl (){
+         let cart =  localStorage.getItem('card')
+         let cartDiv = document.querySelector(".cart")
+         let productArry = cart.split(',')
+        return cartDiv.innerHTML = productArry.length
+     }
+document.querySelector('.btn').addEventListener('click',CreateEl ())
+console.log(CreateEl ())
 
 </script>
 </html>
