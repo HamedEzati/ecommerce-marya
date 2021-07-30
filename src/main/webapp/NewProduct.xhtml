@@ -72,8 +72,6 @@
     </style>
 </h:head>
 <h:body>
-
-
     <a  style="text-decoration: none;background-color: darkred; padding: 10px;color: white" href="crud.xhtml">Back</a>
 
     <h2 style="background-color: darkolivegreen;color: white;padding: 10px">Add New Product</h2>
@@ -162,6 +160,11 @@
             <f:ajax execute="@form" render="@form"/>
         </p:commandButton>
     </h:form>
+
+    <div class="export-products">
+        <h2>Export Products</h2>
+        <a href="#{downloadFile.csvFile}">Download</a>
+    </div>
 
 </h:body>
 </html>

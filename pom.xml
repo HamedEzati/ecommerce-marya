@@ -29,7 +29,7 @@
     </parent>
     <groupId>com</groupId>
     <artifactId>marya</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
     <name>marya</name>
     <description> ecommerce </description>
@@ -235,6 +235,18 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <addResources>true</addResources>
+                </configuration>
+            </plugin>
         </plugins>
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>${basedir}/uploads</directory>-->
+<!--            </resource>-->
+<!--        </resources>-->
     </build>
 </project>
