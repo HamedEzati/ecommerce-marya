@@ -188,11 +188,13 @@
         display: flex;
     }
 
-    #cart{
+    .cart{
     /*display: block;*/
-        width: 50px;
-        padding: 20px;
-        font-size: 30px;
+        width: 30px;
+        /*padding: 10px;*/
+        font-size: 15px; /*padding-left: 10px;*/
+        margin-left:10px;
+        border-radius: 5px;
     }
 
 </style>
@@ -204,9 +206,8 @@
             <h:graphicImage library="images" name="logo.jpeg" />
 
         </div>
-        <div class="cart" style="float: right">
 
-        </div>
+
         <ul id = 'navUl'>
             <li>
                 <a href="index.xhtml"> Home</a>
@@ -216,6 +217,17 @@
             </li>
             <li>
                 <a href="crud.xhtml"> Login</a>
+            </li>
+
+            <li style="border: 1px solid darkolivegreen; border-radius: 5px">
+                <a href="Factor.xhtml">
+                    cart
+                    <div class="cart" style="float: right; border: 1px solid darkred; border-radius: 150px; background: firebrick; color: white;  padding-left: 10px" >
+                        cart
+                    </div>
+                </a>
+
+
             </li>
         </ul>
     </nav>
@@ -249,20 +261,7 @@
         </ui:repeat>
     </ul>
 
-<!--    <div class="product-list-container">-->
-<!--            <div class="product-box" style="width: 100px">-->
-<!--            <ui:repeat value="#{productPublicController.all}" var="product">-->
-<!--                <c:set var="productCategory" value="#{categoryPublicController.get(product.categoryId)}"/>-->
-<!--                <p class="name">#{product.name}</p>-->
-<!--                <p class="product-category">#{productCategory.name}</p>-->
-<!--                <p class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>-->
-<!--                <p class="description">#{product.description}</p>-->
-<!--                <p class="price">#{product.price}</p>-->
-<!--                <p class="quantity">#{product.quantity}</p>-->
-<!--                <button type="button" onclick="addProductToCard(#{product.id})">add</button>-->
-<!--            </ui:repeat>-->
-<!--        </div>-->
-<!--    </div>-->
+
     <ui:repeat value="#{categoryPublicController.all}" var="category">
         <h4 class="cat-Name-H2" id="#{category.name}">#{category.name}</h4>
         <p:carousel value="#{productPublicController.getAllByCategoryId(category.id)}" var="product" responsive="true" >
@@ -307,6 +306,7 @@ function myFunction(){
 
      function addProductToCard(productId){
         let card = localStorage.getItem('card');
+        window.location.reload()
          if (card == null){
              localStorage.setItem('card', productId);
 
