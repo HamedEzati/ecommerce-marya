@@ -8,11 +8,12 @@ import com.marya.entity.Product;
 import com.marya.service.CategoryService;
 import com.marya.service.ProductService;
 import lombok.Data;
+import lombok.SneakyThrows;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.file.UploadedFile;
-import org.primefaces.model.file.UploadedFileWrapper;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.stereotype.Component;
 
 import javax.faces.application.FacesMessage;
@@ -39,7 +40,6 @@ public class ProductPublicController {
     private final ProductService productService;
     private final CategoryService categoryService;
 
-
     private List<ProductOutputModel> allProduct;
     private ProductInputModel productInputModel = new ProductInputModel();
     private ProductOutputModel productOutputModel = new ProductOutputModel();
@@ -50,7 +50,7 @@ public class ProductPublicController {
         this.productMapper = ProductMapper.INSTANCE;
     }
 
-    public ProductOutputModel create(){
+    public ProductOutputModel create() {
         Category category = categoryService.getOptionalById(productInputModel.getCategoryId()).orElseGet(() -> null);
         Product product = productMapper.productInputModelToProduct(productInputModel);
         product.setCategory(category);
@@ -58,7 +58,7 @@ public class ProductPublicController {
         return productMapper.productToProductOutputModel(product);
     }
 
-    public void update(){
+    public void update() {
         allProduct.stream().forEach(productOutputModel -> {
             Category category = categoryService.getOptionalById(productOutputModel.getCategoryId()).orElseGet(() -> null);
             Product product = productMapper.productOutputToProduct(productOutputModel);
@@ -67,45 +67,26 @@ public class ProductPublicController {
         });
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         productService.delete(id);
     }
 
-    public ProductOutputModel get(Long id){
+    public ProductOutputModel get(Long id) {
         Product product = productService.getById(id);
         return productMapper.productToProductOutputModel(product);
     }
 
-    public List<ProductOutputModel> getAll(){
+    public List<ProductOutputModel> getAll() {
         return productService.getAll().stream().map(productMapper::productToProductOutputModel).collect(Collectors.toList());
     }
 
-    public List<ProductOutputModel> getAllProduct(){
+    public List<ProductOutputModel> getAllProduct() {
         allProduct = productService.getAll().stream().map(productMapper::productToProductOutputModel).collect(Collectors.toList());
         return allProduct;
     }
 
-    public List<ProductOutputModel> getAllByCategoryId(Long categoryId){
+    public List<ProductOutputModel> getAllByCategoryId(Long categoryId) {
         return productService.getAllByCategoryId(categoryId).stream().map(productMapper::productToProductOutputModel).collect(Collectors.toList());
     }
-
-
-    public void exportCsv() throws IOException {
-        try (
-                BufferedWriter writer = Files.newBufferedWriter(Paths.get("./sample.csv"));
-
-                CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-                        .withHeader("ID", "Name", "Designation", "Company"));
-        ) {
-            csvPrinter.printRecord("1", "Sundar Pichai ♥", "CEO", "Google");
-            csvPrinter.printRecord("2", "Satya Nadella", "CEO", "Microsoft");
-            csvPrinter.printRecord("3", "Tim cook", "CEO", "Apple");
-
-            csvPrinter.printRecord(Arrays.asList("4", "Mark Zuckerberg", "CEO", "Facebook"));
-
-            csvPrinter.flush();
-        }
-    }
-
 
 }
