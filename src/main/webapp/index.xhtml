@@ -9,111 +9,98 @@
 
 </h:head>
 <style>
-    html {
-        scroll-behavior: smooth;
-    }
-
-    a {
+    html{
+             scroll-behavior: smooth;
+         }
+    a{
         text-decoration: none;
         color: black;
         scroll-behavior: smooth;
     }
+   #catStyle{
+       display: flex;
+       align-items: center;
+       justify-content: center;
+   }
+   #catStyle>li{
+       position: relative;
+       padding: 30px;
+       list-style-type:none;
+       text-decoration: none;
+       background-color: rgba(97,96,96,0.3);
+       border-radius: 5px;
+       margin: 20px;
+       text-align: justify;
+    /*color: black;*/
+       box-shadow: 5px 10px rgba(99,99,99,0.1);
+   }
+   #catStyle>li:hover  #subCat{
+      display: block;
+   }
+   #subCat{
+       top:80px;
+       display: none;
+       position: absolute;
+       background-color: rgba(97,96,96,0.5);
+       list-style-type: none;
+       border-radius: 5px;
+       padding: 10px;
+       text-decoration: none;
+       color: black;
+   }
+   #subCat > a {
+       border-bottom: 1px solid gray;
+       text-decoration: none;
+       color: black;
+   }
+   #nav{
+       background-color: #f8f9fa;
+       box-shadow: 5px 10px 10px rgba(99,99,99,0.1);
+       border: 0.2px solid darkgray;
+       border-radius: 6px;
+   }
+   #navUl{
+       display: flex;
 
-    #catStyle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+   }
+   #navUl>li{
+       padding: 10px;
+       list-style-type: none;
+   }
+   #navUl>li:hover{
+       background-color: rgba(92,92,92,0.2);
+       border-radius: 5px;
 
-    #catStyle > li {
-        position: relative;
-        padding: 30px;
-        list-style-type: none;
-        text-decoration: none;
-        background-color: rgba(97, 96, 96, 0.3);
-        border-radius: 5px;
-        margin: 20px;
-        text-align: justify;
-        /*color: black;*/
-        box-shadow: 5px 10px rgba(99, 99, 99, 0.1);
-    }
+   }
+   #logo{
+       width: 160px;
+       height: 70px;
+       float: right;
+       box-shadow:5px 10px 10px rgba(99,99,99,0.1);
+   }
+   #logo>img{
+       width: 100%;
+       height:97%;
+       border-radius: 10px;
+   }
 
-    #catStyle > li:hover #subCat {
-        display: block;
-    }
-
-    #subCat {
-        top: 80px;
-        display: none;
-        position: absolute;
-        background-color: rgba(97, 96, 96, 0.5);
-        list-style-type: none;
-        border-radius: 5px;
-        padding: 10px;
-        text-decoration: none;
-        color: black;
-    }
-
-    #subCat > a {
-        border-bottom: 1px solid gray;
-        text-decoration: none;
-        color: black;
-    }
-
-    #nav {
-        background-color: #f8f9fa;
-        box-shadow: 5px 10px 10px rgba(99, 99, 99, 0.1);
-        border: 0.2px solid darkgray;
-        border-radius: 6px;
-    }
-
-    #navUl {
-        display: flex;
-
-    }
-
-    #navUl > li {
-        padding: 10px;
-        list-style-type: none;
-    }
-
-    #navUl > li:hover {
-        background-color: rgba(92, 92, 92, 0.2);
-        border-radius: 5px;
-
-    }
-
-    #logo {
-        width: 160px;
-        height: 70px;
-        float: right;
-        box-shadow: 5px 10px 10px rgba(99, 99, 99, 0.1);
-    }
-
-    #logo > img {
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-    }
-
-    .product {
+.product{
         border: 1px solid darkgray;
         border-radius: 10px;
         margin: 13px;
 
-    }
-
-    .product-name {
+}
+    .product-name{
         display: block;
         /*float: right*/
-        margin-bottom: 5px;;
+        margin-bottom: 5px;
+    ;
     }
 
-    #detailProduct > img {
+    #detailProduct>img{
         border-radius: 20px;
     }
-
-    #detailProduct > * {
+    #detailProduct>*{
         display: inline;
         /*float: right;*/
         justify-content: center;
@@ -122,42 +109,35 @@
         line-break: auto;
 
     }
-
-    .product-description {
+    .product-description{
         line-break: auto;
         opacity: 0.4;
         margin-bottom: 5px;
         padding: 10px;
     }
-
-    .product-description:hover {
+    .product-description:hover{
 
         opacity: 1;
     }
-
-    .product-price {
+    .product-price{
         padding: 10px;
     }
-
-    #detailProduct > button {
+    #detailProduct> button{
         display: inline;
         /*float: right;*/
         justify-content: center;
         align-items: center;
         text-align: center;
     }
-
-    #priceDetail > * {
+    #priceDetail>*{
         text-align: center;
         display: block;
         line-break: auto;
     }
-
-    #productImge {
+    #productImge{
         border-radius: 20px;
     }
-
-    #addButton {
+    #addButton{
         width: 100%;
         border-radius: 0px 0px 10px 10px;
         background-color: #4CAF50; /* Green */
@@ -167,24 +147,20 @@
         text-align: center;
         font-size: 16px;
     }
-
-    #addButton:active {
+    #addButton:active{
         background-color: #1c7430;
     }
-
-    .ui-carousel .ui-carousel-viewport .ui-carousel-items .ui-carousel-item {
-        width: 329px !important;
+    .ui-carousel .ui-carousel-viewport .ui-carousel-items .ui-carousel-item{
+        width: 329px!important;
     }
-
-    .ui-widget-header {
-        background-color: #4e555b !important;
+    .ui-widget-header{
+        background-color: #4e555b!important;
         background: none;
         border-color: #4e555b;
-        border: 2px;
+        border:2px;
     }
-
-    .cat-Name-H2 {
-        box-shadow: 0px 0px 30px 2px darkgrey;
+    .cat-Name-H2{
+       box-shadow: 0px 0px 30px 2px darkgrey;
         width: 100px;
         padding: 15px;
         text-align: center;
@@ -197,8 +173,7 @@
         align-items: center;
         display: flex;
     }
-
-    .cat-Name-H2 > * {
+    .cat-Name-H2>*{
         box-shadow: 0px 0px 30px 2px darkgrey;
         width: 100px;
         padding: 10px;
@@ -213,8 +188,8 @@
         display: flex;
     }
 
-    #cart {
-        /*display: block;*/
+    #cart{
+    /*display: block;*/
         width: 50px;
         padding: 20px;
         font-size: 30px;
@@ -224,14 +199,15 @@
 <h:body>
     <nav id="nav">
 
-        <div id='logo'>
-            <img src="logo.jpeg"></img>
-        </div>
-        <div class="cart" style="float: right">
-            &#128722;
+        <div id ='logo'>
+<!--            <img src="logo.jpeg"></img>-->
+            <h:graphicImage library="images" name="logo.jpeg" />
 
         </div>
-        <ul id='navUl'>
+        <div class="cart" style="float: right">
+
+        </div>
+        <ul id = 'navUl'>
             <li>
                 <a href="index.xhtml"> Home</a>
             </li>
@@ -239,14 +215,14 @@
                 <a href="#.xhtml"> about Us</a>
             </li>
             <li>
-                <a href="dashbord.xhtml"> Login</a>
+                <a href="crud.xhtml"> Login</a>
             </li>
         </ul>
     </nav>
-    <div id='slider'>
-        <!--        <img src="1.jpg"></img>-->
+    <div id ='slider'>
+<!--        <img src="1.jpg"></img>-->
         <div>
-            <!--            <img style="width: 100% ; height: 400px" src="2.jpg"></img>-->
+<!--            <img style="width: 100% ; height: 400px" src="2.jpg"></img>-->
         </div>
         <div>
 <!--            <img style="width: 100% ; height: 400px" src="3.png"></img>-->
@@ -257,16 +233,15 @@
     <ul id="catStyle">
         <ui:repeat value="#{categoryPublicController.parents}" var="category">
             <li>
-                <h:link value="#{category.name}" fragment="#{category.name}"/>
-                <!--                    <f:param name="id" value="#{category.id}"/>-->
-                <!--                </h:link>-->
-                <ul id="subCat">
+                <h:link value="#{category.name}" fragment ="#{category.name}" />
+<!--                    <f:param name="id" value="#{category.id}"/>-->
+<!--                </h:link>-->
+                <ul id ="subCat">
                     <ui:repeat value="#{category.subcategories}" var="subCategory1Id"
                                rendered="#{not empty category.subcategories}">
                         <li>
                             <c:set var="subCategory1" value="#{categoryPublicController.get(subCategory1Id)}"/>
-                            <h:link style="text-decoration: none" value=" #{subCategory1.name}`"
-                                    fragment="#{subCategory1.name}"/>
+                            <h:link style="text-decoration: none" value=" #{subCategory1.name}`" fragment ="#{subCategory1.name}" />
                         </li>
                     </ui:repeat>
                 </ul>
@@ -274,26 +249,26 @@
         </ui:repeat>
     </ul>
 
-    <!--    <div class="product-list-container">-->
-    <!--            <div class="product-box" style="width: 100px">-->
-    <!--            <ui:repeat value="#{productPublicController.all}" var="product">-->
-    <!--                <c:set var="productCategory" value="#{categoryPublicController.get(product.categoryId)}"/>-->
-    <!--                <p class="name">#{product.name}</p>-->
-    <!--                <p class="product-category">#{productCategory.name}</p>-->
-    <!--                <p class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>-->
-    <!--                <p class="description">#{product.description}</p>-->
-    <!--                <p class="price">#{product.price}</p>-->
-    <!--                <p class="quantity">#{product.quantity}</p>-->
-    <!--                <button type="button" onclick="addProductToCard(#{product.id})">add</button>-->
-    <!--            </ui:repeat>-->
-    <!--        </div>-->
-    <!--    </div>-->
+<!--    <div class="product-list-container">-->
+<!--            <div class="product-box" style="width: 100px">-->
+<!--            <ui:repeat value="#{productPublicController.all}" var="product">-->
+<!--                <c:set var="productCategory" value="#{categoryPublicController.get(product.categoryId)}"/>-->
+<!--                <p class="name">#{product.name}</p>-->
+<!--                <p class="product-category">#{productCategory.name}</p>-->
+<!--                <p class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>-->
+<!--                <p class="description">#{product.description}</p>-->
+<!--                <p class="price">#{product.price}</p>-->
+<!--                <p class="quantity">#{product.quantity}</p>-->
+<!--                <button type="button" onclick="addProductToCard(#{product.id})">add</button>-->
+<!--            </ui:repeat>-->
+<!--        </div>-->
+<!--    </div>-->
     <ui:repeat value="#{categoryPublicController.all}" var="category">
         <h4 class="cat-Name-H2" id="#{category.name}">#{category.name}</h4>
-        <p:carousel value="#{productPublicController.getAllByCategoryId(category.id)}" var="product" responsive="true">
+        <p:carousel value="#{productPublicController.getAllByCategoryId(category.id)}" var="product" responsive="true" >
             <div class="product">
-                <div id='detailProduct' class="product-grid-item p-p-5">
-                    <div class="product-grid-item-top">
+                <div  id ='detailProduct' class="product-grid-item p-p-5">
+                    <div  class="product-grid-item-top">
                         <div>
                             <i class=" product-category-icon"/>
                             <span class="product-category">#{productCategory.name}</span>
@@ -301,25 +276,20 @@
                         <!--                <span class="product-badge status-#{product.inventoryStatus.name().toLowerCase()}">#{product.inventoryStatus.text}</span>-->
                     </div>
                     <div class="product-grid-item-content">
-                        <p id='productImge' class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/>
-                        </p>
+                        <p id = 'productImge' class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>
                         <div class="product-name">#{product.name}</div>
 
                     </div>
                     <div>
                         <div class="product-description">#{product.description}</div>
                     </div>
-                    <div id='priceDetail' class="product-grid-item-bottom">
+                    <div id = 'priceDetail' class="product-grid-item-bottom">
                         <h:outputText value="#{product.price}" styleClass="product-price">
                             <f:convertNumber currencySymbol="Price :$" type="currency"/>
-                            <button class="bnt" style="text-align: center" type="button"
-                                    onclick="addProductToCard(#{product.id})">add
-                            </button>
+                            <button class="bnt" style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
                         </h:outputText>
                         <div>
-                            <button class="btn" id="addButton" style="text-align: center" type="button"
-                                    onclick="addProductToCard(#{product.id})">add
-                            </button>
+                            <button class="btn" id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
                         </div>
 
                     </div>
@@ -330,31 +300,32 @@
 
 </h:body>
 <script>
-    function myFunction() {
-        location.reload()
-    }
+function myFunction(){
+    location.reload()
+}
 
 
-    function addProductToCard(productId) {
+     function addProductToCard(productId){
         let card = localStorage.getItem('card');
-        if (card == null) {
-            localStorage.setItem('card', productId);
+         if (card == null){
+             localStorage.setItem('card', productId);
 
-        } else {
-            localStorage.setItem('card', card + "," + productId);
-        }
+         }else {
+             localStorage.setItem('card', card + "," + productId);
+         }
 
-    }
+     }
+let cart =  localStorage.getItem('card')
 
-    function CreateEl() {
-        let cart = localStorage.getItem('card')
-        let cartDiv = document.querySelector(".cart")
-        let productArry = cart.split(',')
-        return cartDiv.innerHTML = productArry.length
-    }
+let cartDiv = document.querySelector(".cart")
 
-    document.querySelector('.btn').addEventListener('click', CreateEl())
-    console.log(CreateEl())
+let productArry = cart.split(',')
+
+cartDiv.innerHTML = productArry.length
+$('button').click(function(i,curent){
+    $('cartDiv').html(curent)
+})
 
 </script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </html>
