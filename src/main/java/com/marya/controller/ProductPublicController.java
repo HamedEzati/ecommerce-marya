@@ -20,10 +20,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 import javax.servlet.http.Part;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -44,11 +47,14 @@ public class ProductPublicController {
     private ProductInputModel productInputModel = new ProductInputModel();
     private ProductOutputModel productOutputModel = new ProductOutputModel();
 
+
     public ProductPublicController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.productMapper = ProductMapper.INSTANCE;
     }
+
+
 
     public ProductOutputModel create(){
         Category category = categoryService.getOptionalById(productInputModel.getCategoryId()).orElseGet(() -> null);

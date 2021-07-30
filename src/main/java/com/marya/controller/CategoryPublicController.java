@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -33,10 +34,20 @@ public class CategoryPublicController implements Serializable {
     private List<CategoryOutputModel> allCategory;
     private CategoryInputModel categoryInputModel = new CategoryInputModel();
     private CategoryOutputModel categoryOutputModel = new CategoryOutputModel();
+    private List<SelectItem> categoriesGroup;
+
 
     public CategoryPublicController(CategoryService categoryService) {
         this.categoryService = categoryService;
         this.categoryMapper = CategoryMapper.INSTANCE;
+    }
+
+    public List<SelectItem> getCategoriesGroup() {
+        categoriesGroup = new ArrayList<>();
+        categoryService.getAll().forEach(category -> {
+            categoriesGroup.add(new SelectItem(category.getId(), category.getName()));
+        });
+        return categoriesGroup;
     }
 
 
