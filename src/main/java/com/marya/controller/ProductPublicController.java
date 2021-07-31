@@ -14,6 +14,7 @@ import org.apache.commons.csv.CSVPrinter;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 import org.springframework.stereotype.Component;
 
 import javax.faces.application.FacesMessage;
@@ -44,6 +45,17 @@ public class ProductPublicController {
     private ProductInputModel productInputModel = new ProductInputModel();
     private ProductOutputModel productOutputModel = new ProductOutputModel();
 
+    private UploadedFile file;
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+
     public ProductPublicController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
         this.categoryService = categoryService;
@@ -72,6 +84,8 @@ public class ProductPublicController {
     }
 
     public ProductOutputModel get(Long id) {
+        FacesMessage message = new FacesMessage("Successful");
+        FacesContext.getCurrentInstance().addMessage(null, message);
         Product product = productService.getById(id);
         return productMapper.productToProductOutputModel(product);
     }
@@ -88,5 +102,6 @@ public class ProductPublicController {
     public List<ProductOutputModel> getAllByCategoryId(Long categoryId) {
         return productService.getAllByCategoryId(categoryId).stream().map(productMapper::productToProductOutputModel).collect(Collectors.toList());
     }
+
 
 }

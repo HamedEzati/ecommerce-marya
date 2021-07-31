@@ -104,10 +104,6 @@
                 <f:selectItems value="#{categoryPublicController.categoriesGroup}"/>
             </p:selectOneMenu>
 
-            <p:outputLabel for="productImage" value="Product Image" />
-            <p:fileUpload id="productImage" value="#{productPublicController.file}" mode="simple" skinSimple="true"/>
-            <p:message for="productImage" />
-
             <!--            <p:commandButton update="@form :customers:customerList" value="Add" action="#{categoryController.create}">-->
             <p:commandButton style="color: white; background: #1c7430; padding: 5px" update="@form :products:productList" value="Add" action="#{productPublicController.create}">
             </p:commandButton>
@@ -164,6 +160,19 @@
     <div class="export-products">
         <h2>Export Products</h2>
         <a href="#{downloadFile.csvFile}">Download</a>
+    </div>
+
+    <div class="card">
+        <h5>Single</h5>
+        <h:form enctype="multipart/form-data">
+            <p:outputLabel for="@next" value="Grouping"/>
+            <p:selectOneMenu id="groupProducts" value="#{uploadFile.productId}">
+                <f:selectItem itemLabel="Select One" itemValue=""/>
+                <f:selectItems value="#{uploadFile.productsGroup}"/>
+            </p:selectOneMenu>
+            <p:fileUpload value="#{uploadFile.file}" mode="simple" skinSimple="true"/>
+            <p:commandButton value="Submit" ajax="false" action="#{uploadFile.upload}" styleClass="p-mt-3 ui-button-outlined p-d-block"/>
+        </h:form>
     </div>
 
 </h:body>
