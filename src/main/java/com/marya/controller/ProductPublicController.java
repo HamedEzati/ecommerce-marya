@@ -72,6 +72,8 @@ public class ProductPublicController {
     }
 
     public ProductOutputModel get(Long id) {
+        FacesMessage message = new FacesMessage("Successful");
+        FacesContext.getCurrentInstance().addMessage(null, message);
         Product product = productService.getById(id);
         return productMapper.productToProductOutputModel(product);
     }
@@ -88,5 +90,6 @@ public class ProductPublicController {
     public List<ProductOutputModel> getAllByCategoryId(Long categoryId) {
         return productService.getAllByCategoryId(categoryId).stream().map(productMapper::productToProductOutputModel).collect(Collectors.toList());
     }
+
 
 }
