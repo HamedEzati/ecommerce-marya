@@ -73,6 +73,7 @@
 </h:head>
 <h:body>
     <a  style="text-decoration: none;background-color: darkred; padding: 10px;color: white" href="crud.xhtml">Back</a>
+    <a style=" text-decoration: none; padding: 10px; background: green;color: white" href="#{downloadFile.csvFile}">Product Report</a>
 
     <h2 style="background-color: darkolivegreen;color: white;padding: 10px">Add New Product</h2>
     <h:form id="add-product">
@@ -161,9 +162,8 @@
         </p:commandButton>
     </h:form>
 
-    <div class="export-products">
+    <div  class="export-products">
         <h2>Export Products</h2>
-        <a href="#{downloadFile.csvFile}">Download</a>
     </div>
 
 </h:body>
