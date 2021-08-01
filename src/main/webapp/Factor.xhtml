@@ -200,7 +200,7 @@
 </style>
 <h:body>
     <div class="card">
-        <p:dataTable var="product" value="#{dtBasicView.products}">
+        <p:dataTable var="product" value="#{localstorage.getItem('card')}">
             <f:facet name="header">
                 List of Products
             </f:facet>
