@@ -27,10 +27,10 @@ import javax.servlet.ServletContext;
 @EntityScan("com.marya.entity")
 @EnableTransactionManagement
 @EnableAsync
-public class StudentCrudWithPrimefacesUiApplication implements ServletContextAware{
+public class EcommerceMaryaApplication implements ServletContextAware{
 
 	public static void main(String[] args) {
-		SpringApplication.run(StudentCrudWithPrimefacesUiApplication.class, args);
+		SpringApplication.run(EcommerceMaryaApplication.class, args);
 	}
 
 	@Override
