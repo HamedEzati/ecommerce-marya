@@ -214,7 +214,7 @@
             </li>
 
             <li style="border: 1px solid darkolivegreen; border-radius: 5px">
-                <a href="card.xhtml">
+                <a href="cart.xhtml">
                     cart
                     <div class="cart" style="float: right; border: 1px solid darkred; border-radius: 150px; background: firebrick; color: white;  padding-left: 10px" >
                         cart
@@ -296,20 +296,20 @@ function myFunction(){
 
      function addProductToCard(product){
         console.log(product)
-        // let card = localStorage.getItem('card');
+        // let cart = localStorage.getItem('cart');
         window.location.reload()
-         // if (card == null){
-         //     localStorage.setItem('card', product);
+         // if (cart == null){
+         //     localStorage.setItem('cart', product);
          //
          // }else {
-         //     localStorage.setItem('card', card + "," + product);
+         //     localStorage.setItem('cart', cart + "," + product);
          // }
-         card = JSON.parse(localStorage.getItem("card") || "[]");
-         card.push(product);
-         localStorage.setItem("card", JSON.stringify(card));
+         cart = JSON.parse(localStorage.getItem("cart") || "[]");
+         cart.push(product);
+         localStorage.setItem("cart", JSON.stringify(cart));
 
      }
-let cart =  JSON.parse(localStorage.getItem("card") || "[]");
+let cart =  JSON.parse(localStorage.getItem("cart") || "[]");
 
 let cartDiv = document.querySelector(".cart");
 cartDiv.innerHTML = cart.length;
