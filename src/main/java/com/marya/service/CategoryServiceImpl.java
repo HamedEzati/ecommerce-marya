@@ -3,6 +3,7 @@ package com.marya.service;
 import com.marya.entity.Category;
 import com.marya.repository.CategoryRepository;
 import com.marya.service.exception.NotFoundException;
+import com.marya.service.exception.ValidationException;
 import com.marya.service.mapper.CategoryServiceMapper;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category create(Category category) {
+        if (Objects.isNull(category.getName()) || category.getName().isEmpty())
+            throw new ValidationException("category name is empty.");
         return categoryRepository.save(category);
     }
 

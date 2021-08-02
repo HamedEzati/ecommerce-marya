@@ -10,26 +10,104 @@
 
 </h:head>
 <style>
+    #myTable {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
 
+    #myTable td, #myTable th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #myTable tr:nth-child(even){background-color: #f2f2f2;}
+
+    #myTable tr:hover {background-color: #ddd;}
+
+    #myTable th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    #payButton {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px;
+    }
+    #payButton:hover {
+        cursor: pointer;
+    }
+
+    .deleteButton {
+        background-color: #af0102;
+        border: none;
+        color: white;
+        padding: 5px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+    }
+    .deleteButton:hover {
+        cursor: pointer;
+    }
 
 </style>
 <h:body>
+    <a  style="text-decoration: none;background-color: darkred; padding: 10px;color: white" href="index.xhtml">Back To Site</a>
     <div class="cart">
 
         <h2>Cart</h2>
 
-        <table id="cart-table">
+        <table id="myTable">
             <tr>
+                <th>number</th>
                 <th>name</th>
                 <th>price</th>
+                <th></th>
             </tr>
         </table>
+
+        <button id="payButton"></button>
 
     </div>
 </h:body>
 <script>
-    let cart =  JSON.parse(localStorage.getItem("cart") || "[]");
-    var table = document.getElementById("cart-table");
-
+    var cart =  JSON.parse(localStorage.getItem("cart") || "[]");
+    var table = document.getElementById("myTable");
+    var totalPrice = 0;
+    for (let i = 0 ; i &lt; cart.length ; i++){
+        var row = table.insertRow(i + 1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        let btn = document.createElement("button");
+        btn.innerHTML = "Delete";
+        btn.className = "deleteButton"
+        btn.onclick = function () {
+            let newCart = cart.filter(el => {
+                return el.id != cart[i].id;
+            })
+            localStorage.setItem("cart", JSON.stringify(newCart));
+            location.reload();
+        };
+        cell1.innerHTML = i + 1;
+        cell2.innerHTML = cart[i].name;
+        cell3.innerHTML = cart[i].price;
+        cell4.appendChild(btn);
+        totalPrice += cart[i].price;
+    }
+    document.getElementById("payButton").innerHTML = "Pay: total price = $" + totalPrice;
 </script>
 </html>
