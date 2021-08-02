@@ -72,10 +72,10 @@
     </style>
 </h:head>
 <h:body>
-    <a  style="text-decoration: none;background-color: darkred; padding: 10px;color: white" href="crud.xhtml">Back</a>
+    <a  style="text-decoration: none;background-color: darkred; padding: 10px;color: white" href="category.xhtml">Back</a>
     <a style=" text-decoration: none; padding: 10px; background: green;color: white" href="#{downloadFile.csvFile}">Product Report</a>
-
     <h2 style="background-color: darkolivegreen;color: white;padding: 10px">Add New Product</h2>
+    <p:separator/>
     <h:form id="add-product">
         <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
             <p:outputLabel for="productName" value="Product Name" />
@@ -99,7 +99,7 @@
 <!--            <p:message for="productCategoryId" />-->
 
 
-            <p:outputLabel for="@next" value="Grouping"/>
+            <p:outputLabel for="@next" value="Category"/>
             <p:selectOneMenu id="group" value="#{productPublicController.productInputModel.categoryId}">
                 <f:selectItem itemLabel="Select One" itemValue=""/>
                 <f:selectItems value="#{categoryPublicController.categoriesGroup}"/>
@@ -110,8 +110,26 @@
             </p:commandButton>
         </h:panelGrid>
     </h:form>
+    <p:separator/>
+    <div class="card">
+        <h2 style="background-color: darkolivegreen;color: white;padding: 10px">Upload product image</h2>
+        <p:separator/>
+        <h:form enctype="multipart/form-data">
+            <h:panelGrid columns="4" cellpadding="5" style="margin: 0 auto;">
+                <p:outputLabel for="@next" value="Product image"/>
+                <p:selectOneMenu id="groupProducts" value="#{uploadFile.productId}">
+                    <f:selectItem itemLabel="Select One" itemValue=""/>
+                    <f:selectItems value="#{uploadFile.productsGroup}"/>
+                </p:selectOneMenu>
+                <p:fileUpload value="#{uploadFile.file}" mode="simple" skinSimple="true"/>
+                <p:commandButton value="Submit" ajax="false" action="#{uploadFile.upload}" styleClass="p-mt-3 ui-button-outlined p-d-block"/>
+            </h:panelGrid>
+        </h:form>
+        <p:separator/>
+    </div>
 
     <h2>Update And Delete Product</h2>
+    <p:separator/>
     <h:form id="products">
         <p:growl id="growl-product" sticky="true" />
         <p:dataTable id="productList" var="product" value="#{productPublicController.allProduct}">
@@ -135,9 +153,10 @@
                 <p:inputText id="descriptionInput" value="#{product.description}"/>
             </p:column>
 
-            <p:column headerText="Category Id">
-                <p:selectOneMenu id="group" value="#{productPublicController.productInputModel.categoryId}">
-                    <f:selectItem itemLabel="Select One" itemValue=""/>
+            <p:column headerText="Category">
+                <p:selectOneMenu id="group2" value="#{product.categoryId}">
+                    <f:selectItem itemLabel="#{categoryPublicController.get(product.categoryId).name}" itemValue="#{categoryPublicController.get(product.categoryId).id}"/>
+                    <f:selectItem itemLabel="" itemValue=""/>
                     <f:selectItems value="#{categoryPublicController.categoriesGroup}"/>
                 </p:selectOneMenu>
             </p:column>
@@ -157,23 +176,5 @@
             <f:ajax execute="@form" render="@form"/>
         </p:commandButton>
     </h:form>
-
-    <div  class="export-products">
-        <h2>Export Products</h2>
-    </div>
-
-    <div class="card">
-        <h5>Single</h5>
-        <h:form enctype="multipart/form-data">
-            <p:outputLabel for="@next" value="Grouping"/>
-            <p:selectOneMenu id="groupProducts" value="#{uploadFile.productId}">
-                <f:selectItem itemLabel="Select One" itemValue=""/>
-                <f:selectItems value="#{uploadFile.productsGroup}"/>
-            </p:selectOneMenu>
-            <p:fileUpload value="#{uploadFile.file}" mode="simple" skinSimple="true"/>
-            <p:commandButton value="Submit" ajax="false" action="#{uploadFile.upload}" styleClass="p-mt-3 ui-button-outlined p-d-block"/>
-        </h:form>
-    </div>
-
 </h:body>
 </html>

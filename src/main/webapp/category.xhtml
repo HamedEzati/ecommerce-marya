@@ -85,7 +85,7 @@
     <div class="crud-category">
         <a  style="text-decoration: none;background-color: darkred; padding: 10px;color: white" href="index.xhtml">Back To Site</a>
 
-        <a id="otherpage" href="NewProduct.xhtml">newProduct And Update</a>
+        <a id="otherpage" href="product.xhtml">newProduct And Update</a>
         <h2>Add New Category</h2>
         <h:form id="add-category">
             <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
@@ -93,7 +93,7 @@
                 <p:inputText id="categoryName" value="#{categoryPublicController.categoryInputModel.name}" />
                 <p:message for="categoryName" />
 
-                <p:outputLabel for="@next" value="Grouping"/>
+                <p:outputLabel for="@next" value="Parent Category"/>
                 <p:selectOneMenu id="group" value="#{categoryPublicController.categoryInputModel.parentId}">
                     <f:selectItem itemLabel="Select One" itemValue=""/>
                     <f:selectItems value="#{categoryPublicController.categoriesGroup}"/>
@@ -120,9 +120,10 @@
                     <p:inputText  style="width: 190px ;justify-content: center; text-align: center" id="categoryNameInput" value="#{category.name}"/>
                 </p:column>
 
-                <p:column style="text-align: center;width: 160px" headerText="Parent Id">
-                    <p:selectOneMenu id="group2" value="#{productPublicController.productInputModel.categoryId}">
-                        <f:selectItem itemLabel="select one" itemValue=""/>
+                <p:column style="text-align: center;width: 160px" headerText="Parent Category">
+                    <p:selectOneMenu id="group2" value="#{category.parentId}">
+                        <f:selectItem itemLabel="#{categoryPublicController.get(category.parentId).name}" itemValue="#{categoryPublicController.get(category.parentId).id}"/>
+                        <f:selectItem itemLabel="" itemValue=""/>
                         <f:selectItems value="#{categoryPublicController.categoriesGroup}"/>
                     </p:selectOneMenu>
                     <!--

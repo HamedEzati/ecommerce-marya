@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -165,10 +166,8 @@
         padding: 15px;
         text-align: center;
         border-radius: 5px;
-        /*border-color: darkgrey;*/
         font-size: 22px;
         margin-left: 100px;
-        /*border: 1px solid darkgrey;*/
         justify-content: center;
         align-items: center;
         display: flex;
@@ -179,20 +178,16 @@
         padding: 10px;
         text-align: center;
         border-radius: 5px;
-        /*border-color: darkgrey;*/
         font-size: 22px;
         margin-left: 100px;
-        /*border: 1px solid darkgrey;*/
         justify-content: center;
         align-items: center;
         display: flex;
     }
 
     .cart{
-    /*display: block;*/
         width: 30px;
-        /*padding: 10px;*/
-        font-size: 15px; /*padding-left: 10px;*/
+        font-size: 15px;
         margin-left:10px;
         border-radius: 5px;
     }
@@ -202,7 +197,6 @@
     <nav id="nav">
 
         <div id ='logo'>
-<!--            <img src="logo.jpeg"></img>-->
             <h:graphicImage library="images" name="logo.jpeg" />
 
         </div>
@@ -216,11 +210,11 @@
                 <a href="#.xhtml"> about Us</a>
             </li>
             <li>
-                <a href="crud.xhtml"> Login</a>
+                <a href="category.xhtml"> Login</a>
             </li>
 
             <li style="border: 1px solid darkolivegreen; border-radius: 5px">
-                <a href="Factor.xhtml">
+                <a href="card.xhtml">
                     cart
                     <div class="cart" style="float: right; border: 1px solid darkred; border-radius: 150px; background: firebrick; color: white;  padding-left: 10px" >
                         cart
@@ -232,12 +226,9 @@
         </ul>
     </nav>
     <div id ='slider'>
-<!--        <img src="1.jpg"></img>-->
         <div>
-<!--            <img style="width: 100% ; height: 400px" src="2.jpg"></img>-->
         </div>
         <div>
-<!--            <img style="width: 100% ; height: 400px" src="3.png"></img>-->
             <h:graphicImage style="width: 100% ; height: 400px" library="images" name="3.png" />
         </div>
 
@@ -284,10 +275,10 @@
                     <div id = 'priceDetail' class="product-grid-item-bottom">
                         <h:outputText value="#{product.price}" styleClass="product-price">
                             <f:convertNumber currencySymbol="Price :$" type="currency"/>
-                            <button class="bnt" style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
+                            <button class="bnt" style="text-align: center" type="button" onclick="addProductToCard(#{product.toString})">add</button>
                         </h:outputText>
                         <div>
-                            <button class="btn" id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.id})">add</button>
+                            <button class="btn" id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.toString})">add</button>
                         </div>
 
                     </div>
@@ -303,24 +294,25 @@ function myFunction(){
 }
 
 
-     function addProductToCard(productId){
-        let card = localStorage.getItem('card');
+     function addProductToCard(product){
+        console.log(product)
+        // let card = localStorage.getItem('card');
         window.location.reload()
-         if (card == null){
-             localStorage.setItem('card', productId);
-
-         }else {
-             localStorage.setItem('card', card + "," + productId);
-         }
+         // if (card == null){
+         //     localStorage.setItem('card', product);
+         //
+         // }else {
+         //     localStorage.setItem('card', card + "," + product);
+         // }
+         card = JSON.parse(localStorage.getItem("card") || "[]");
+         card.push(product);
+         localStorage.setItem("card", JSON.stringify(card));
 
      }
-let cart =  localStorage.getItem('card')
+let cart =  JSON.parse(localStorage.getItem("card") || "[]");
 
-let cartDiv = document.querySelector(".cart")
-
-let productArry = cart.split(',')
-
-cartDiv.innerHTML = productArry.length
+let cartDiv = document.querySelector(".cart");
+cartDiv.innerHTML = cart.length;
 $('button').click(function(i,curent){
     $('cartDiv').html(curent)
 })

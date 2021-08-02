@@ -39,6 +39,7 @@ public class ProductPublicController {
     private final ProductMapper productMapper;
     private final ProductService productService;
     private final CategoryService categoryService;
+    private String card;
 
     private List<ProductOutputModel> allProduct;
     private ProductInputModel productInputModel = new ProductInputModel();
@@ -48,6 +49,14 @@ public class ProductPublicController {
         this.productService = productService;
         this.categoryService = categoryService;
         this.productMapper = ProductMapper.INSTANCE;
+    }
+
+    public String getCard() {
+        return card;
+    }
+
+    public void setCard(String card) {
+        this.card = card;
     }
 
     public ProductOutputModel create() {

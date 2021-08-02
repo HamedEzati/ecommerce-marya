@@ -1,26 +1,17 @@
 package com.marya;
 
-import com.google.common.collect.ImmutableMap;
-import com.sun.faces.config.ConfigureListener;
-import lombok.extern.slf4j.Slf4j;
 import org.primefaces.webapp.filter.FileUploadFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletContextInitializer;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.context.ServletContextAware;
@@ -28,11 +19,7 @@ import org.springframework.web.context.ServletContextAware;
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.DispatcherType;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.sql.DataSource;
-import java.util.Collections;
 
-//@SpringBootApplication(scanBasePackages = "tr.com.melihhilmiuludag.student.proj.*")
 @SpringBootApplication
 @Configuration
 @ComponentScan("com.marya.*")
@@ -40,7 +27,6 @@ import java.util.Collections;
 @EntityScan("com.marya.entity")
 @EnableTransactionManagement
 @EnableAsync
-//@Slf4j
 public class StudentCrudWithPrimefacesUiApplication implements ServletContextAware{
 
 	public static void main(String[] args) {
@@ -50,15 +36,11 @@ public class StudentCrudWithPrimefacesUiApplication implements ServletContextAwa
 	@Override
 	public void setServletContext(ServletContext servletContext) {
 		servletContext.setInitParameter("facelets.DEVELOPMENT", Boolean.TRUE.toString());
-
 		servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".xhtml");
 		servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
 		servletContext.setInitParameter("javax.faces.FACELETS_REFRESH_PERIOD", "1");
-//		servletContext.setInitParameter("javax.faces.FACELETS_LIBRARIES", "/WEB-INF/springsecurity.taglib.xml");
 		servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", Boolean.TRUE.toString());
-
 		servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
-
 		servletContext.setInitParameter("primefaces.CLIENT_SIDE_VALIDATION", Boolean.TRUE.toString());
 		servletContext.setInitParameter("primefaces.THEME", "ui-lightness");
 		servletContext.setInitParameter("primefaces.UPLOADER", "commons");
