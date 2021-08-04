@@ -166,7 +166,7 @@
     }
     .cat-Name-H2{
        box-shadow: 0px 0px 30px 2px darkgrey;
-        width: 100px;
+        width: 20%;
         padding: 15px;
         text-align: center;
         border-radius: 5px;
@@ -178,7 +178,7 @@
     }
     .cat-Name-H2>*{
         box-shadow: 0px 0px 30px 2px darkgrey;
-        width: 100px;
+        width: 20%;
         padding: 10px;
         text-align: center;
         border-radius: 5px;
@@ -195,6 +195,9 @@
         margin-left:10px;
         border-radius: 5px;
     }
+    #logout-nav:hover{
+        cursor: pointer;
+    }
 
 </style>
 <h:body>
@@ -204,8 +207,6 @@
             <h:graphicImage library="images" name="logo.jpeg" />
 
         </div>
-
-
         <ul id = 'navUl'>
             <li>
                 <a href="index.xhtml"> Home</a>
@@ -213,8 +214,17 @@
             <li>
                 <a href="#.xhtml"> about Us</a>
             </li>
-            <li>
-                <a href="category.xhtml"> Login</a>
+            <li id="login-nav">
+                <a href="login.xhtml"> Login</a>
+            </li>
+            <li id="category-nav">
+                <a href="category.xhtml"> manage cetegories</a>
+            </li>
+            <li id="product-nav">
+                <a href="product.xhtml"> manage products</a>
+            </li>
+            <li id="logout-nav">
+                <a onclick="logout()"> Logout</a>
             </li>
 
             <li style="border: 1px solid darkolivegreen; border-radius: 5px">
@@ -293,19 +303,31 @@
 
 </h:body>
 <script>
+    isAuth = localStorage.getItem("auth");
+    console.log(isAuth)
+    if (isAuth == null || isAuth == "false"){
+        document.getElementById("category-nav").style.display = "none";
+        document.getElementById("login-nav").style.display = "list-item";
+        document.getElementById("logout-nav").style.display = "none";
+        document.getElementById("product-nav").style.display = "none";
+    }else {
+        document.getElementById("category-nav").style.display = "list-item";
+        document.getElementById("login-nav").style.display = "none";
+        document.getElementById("logout-nav").style.display = "list-item";
+        document.getElementById("product-nav").style.display = "list-item";
+    }
+
+
+    function logout() {
+        localStorage.removeItem("auth");
+        location.reload();
+    }
 function myFunction(){
     location.reload()
 }
      function addProductToCard(product){
         console.log(product)
-        // let cart = localStorage.getItem('cart');
         window.location.reload()
-         // if (cart == null){
-         //     localStorage.setItem('cart', product);
-         //
-         // }else {
-         //     localStorage.setItem('cart', cart + "," + product);
-         // }
          cart = JSON.parse(localStorage.getItem("cart") || "[]");
          cart.push(product);
          localStorage.setItem("cart", JSON.stringify(cart));

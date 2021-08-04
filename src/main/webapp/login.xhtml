@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>User Details</title>
+<!--    <h:outputStylesheet name="/css/bootstrap.min.css"/>-->
+    <style type="text/css">
+        input[type=text], input[type=password], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        div {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        #login-button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+        }
+        #login-button:hover {
+            cursor: pointer;
+        }
+        .login{
+            width: 50%;
+            margin: auto;
+        }
+    </style>
+</h:head>
+<h:body>
+        <a  style="text-decoration: none;background-color: darkred; padding: 10px;color: white" href="index.xhtml">Back To Site</a>
+        <div class="login">
+            <h2>Login</h2>
+            <label for="username">username</label>
+            <input type="text" id="username" name="username" placeholder="Your username.."/>
+
+            <label for="password">password</label>
+            <input type="password" id="password" name="password" placeholder="Your password.."/>
+
+            <button id="login-button" onclick="login()">Login</button>
+
+        </div>
+
+</h:body>
+<script>
+    var cart =  JSON.parse(localStorage.getItem("cart") || "[]");
+    var table = document.getElementById("myTable");
+    var totalPrice = 0;
+    for (let i = 0 ; i &lt; cart.length ; i++){
+        var row = table.insertRow(i + 1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        let btn = document.createElement("button");
+        btn.innerHTML = "Delete";
+        btn.className = "deleteButton"
+        btn.onclick = function () {
+            let newCart = cart.filter(el => {
+                return el.id != cart[i].id;
+            })
+            localStorage.setItem("cart", JSON.stringify(newCart));
+            location.reload();
+        };
+        cell1.innerHTML = i + 1;
+        cell2.innerHTML = cart[i].name;
+        cell3.innerHTML = cart[i].price;
+        cell4.appendChild(btn);
+        totalPrice += cart[i].price;
+    }
+    function login() {
+        username = document.getElementById("username").value;
+        password = document.getElementById("password").value;
+
+        if (username.length &lt;= 0){
+            alert("please fill username.");
+            return;
+        }
+        if (password.length &lt;= 0){
+            alert("please fill password.");
+            return;
+        }
+        if (username == "admin" &amp;&amp; password == "admin"){
+            var isAuth = localStorage.setItem("auth", "true");
+            location.assign("index.xhtml");
+        }else {
+            alert("username or password is incorrect.");
+        }
+    }
+</script>
+</html>

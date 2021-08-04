@@ -191,4 +191,11 @@
         </p:commandButton>
     </h:form>
 </h:body>
+<script>
+    isAuth = localStorage.getItem("auth");
+    console.log(isAuth)
+    if (isAuth == null || isAuth == "false"){
+        location.assign("login.xhtml");
+    }
+</script>
 </html>
