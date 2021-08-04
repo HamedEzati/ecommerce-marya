@@ -73,7 +73,21 @@
 </h:head>
 <h:body>
     <a  style="text-decoration: none;background-color: darkred; padding: 10px;color: white" href="category.xhtml">Back</a>
-    <a style=" text-decoration: none; padding: 10px; background: green;color: white" href="#{downloadFile.csvFile}">Product Report</a>
+    <h2 style="background-color: darkolivegreen;color: white;padding: 10px">Product Report</h2>
+    <p:separator/>
+    <h:form>
+        <h:form style="margin-top: 10px" id="download-csv">
+            <p:selectOneMenu id="groupCategories" value="#{downloadFile.categoryId}" style="margin: 10px">
+                <f:selectItem itemLabel="All" itemValue=""/>
+                <f:selectItems value="#{downloadFile.categoriesGroup}"/>
+            </p:selectOneMenu>
+            <h:commandButton styleClass="download-btn" action="#{downloadFile.downloadCsv}" value="Download">
+            </h:commandButton>
+
+        </h:form>
+    </h:form>
+    <p:separator style="margin-top: 20px"/>
+
     <h2 style="background-color: darkolivegreen;color: white;padding: 10px">Add New Product</h2>
     <p:separator/>
     <h:form id="add-product">

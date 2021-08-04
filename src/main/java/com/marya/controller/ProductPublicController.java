@@ -25,6 +25,7 @@ import javax.servlet.http.Part;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -64,6 +65,7 @@ public class ProductPublicController {
         Product product = productMapper.productInputModelToProduct(productInputModel);
         product.setCategory(category);
         product = productService.create(product);
+        productInputModel.clear();
         return productMapper.productToProductOutputModel(product);
     }
 
@@ -81,8 +83,6 @@ public class ProductPublicController {
     }
 
     public ProductOutputModel get(Long id) {
-        FacesMessage message = new FacesMessage("Successful");
-        FacesContext.getCurrentInstance().addMessage(null, message);
         Product product = productService.getById(id);
         return productMapper.productToProductOutputModel(product);
     }

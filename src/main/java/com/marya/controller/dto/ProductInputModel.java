@@ -12,4 +12,13 @@ public class ProductInputModel {
     private double price;
     private int quantity;
 
+    public void clear(){
+        this.id = null;
+        this.name = null;
+        this.description = null;
+        this.categoryId = null;
+        this.price = 0.0;
+        this.quantity = 0;
+    }
+
 }

@@ -258,37 +258,37 @@
 
 
     <ui:repeat value="#{categoryPublicController.all}" var="category">
-        <h4 class="cat-Name-H2" id="#{category.name}">#{category.name}</h4>
-        <p:carousel value="#{productPublicController.getAllByCategoryId(category.id)}" var="product" responsive="true" >
-            <div class="product">
-                <div  id ='detailProduct' class="product-grid-item p-p-5">
-                    <div  class="product-grid-item-top">
-                        <div>
-                            <i class=" product-category-icon"/>
-                            <span class="product-category">#{productCategory.name}</span>
+            <h4 class="cat-Name-H2" id="#{category.name}">#{category.name}</h4>
+            <p:carousel value="#{productPublicController.getAllByCategoryId(category.id)}" var="product" responsive="true" >
+                <div class="product">
+                    <div  id ='detailProduct' class="product-grid-item p-p-5">
+                        <div  class="product-grid-item-top">
+                            <div>
+                                <i class=" product-category-icon"/>
+                                <span class="product-category">#{productCategory.name}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="product-grid-item-content">
-                        <p id = 'productImge' class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>
-                        <div class="product-name">#{product.name}</div>
-
-                    </div>
-                    <div>
-                        <div class="product-description">#{product.description}</div>
-                    </div>
-                    <div id = 'priceDetail' class="product-grid-item-bottom">
-                        <h:outputText value="#{product.price}" styleClass="product-price">
-                            <f:convertNumber currencySymbol="Price :$" type="currency"/>
-                            <button class="bnt" style="text-align: center" type="button" onclick="addProductToCard(#{product.toString})">add</button>
-                        </h:outputText>
-                        <div>
-                            <button class="btn" id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.toString})">add</button>
+                        <div class="product-grid-item-content">
+                            <p id = 'productImge' class="image"><img src="${product.imageUrl}" alt="" style="width: 100%"/></p>
+                            <div class="product-name">#{product.name}</div>
+                            <div>quantity: #{product.quantity}</div>
                         </div>
+                        <div>
+                            <div class="product-description">#{product.description}</div>
+                        </div>
+                        <div id = 'priceDetail' class="product-grid-item-bottom">
+                            <h:outputText value="#{product.price}" styleClass="product-price">
+                                <f:convertNumber currencySymbol="Price :$" type="currency"/>
+                                <button class="bnt" style="text-align: center" type="button" onclick="addProductToCard(#{product.toString})">add</button>
+                            </h:outputText>
+                            <div>
+                                <button class="btn" id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.toString})">add</button>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-        </p:carousel>
+            </p:carousel>
     </ui:repeat>
 
 </h:body>
@@ -296,8 +296,6 @@
 function myFunction(){
     location.reload()
 }
-
-
      function addProductToCard(product){
         console.log(product)
         // let cart = localStorage.getItem('cart');

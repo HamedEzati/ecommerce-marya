@@ -31,6 +31,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void update(Category category) {
+        if (Objects.isNull(category.getName()) || category.getName().isEmpty())
+            throw new ValidationException("category name is empty.");
         Category existingCategory = getById(category.getId());
         categoryServiceMapper.updateCategory(existingCategory, category);
         categoryRepository.save(existingCategory);

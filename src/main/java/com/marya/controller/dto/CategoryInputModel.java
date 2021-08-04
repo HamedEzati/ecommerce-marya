@@ -9,4 +9,10 @@ public class CategoryInputModel {
     private String name;
     private Long parentId;
 
+    public void clear(){
+        this.id = null;
+        this.name = null;
+        this.parentId = null;
+    }
+
 }

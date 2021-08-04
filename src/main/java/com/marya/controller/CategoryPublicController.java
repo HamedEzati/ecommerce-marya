@@ -2,6 +2,7 @@ package com.marya.controller;
 
 import com.marya.controller.dto.CategoryInputModel;
 import com.marya.controller.dto.CategoryOutputModel;
+import com.marya.controller.dto.MessagesView;
 import com.marya.controller.mapper.CategoryMapper;
 import com.marya.entity.Category;
 import com.marya.service.CategoryService;
@@ -70,6 +71,7 @@ public class CategoryPublicController implements Serializable {
         Category category = categoryMapper.categoryInputModelToCategory(categoryInputModel);
         category.setParent(parent);
         category = categoryService.create(category);
+        categoryInputModel.clear();
         return categoryMapper.categoryToCategoryOutputModel(category);
     }
 

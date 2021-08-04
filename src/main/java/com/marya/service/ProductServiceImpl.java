@@ -3,6 +3,7 @@ package com.marya.service;
 import com.marya.entity.Product;
 import com.marya.repository.ProductRepository;
 import com.marya.service.exception.NotFoundException;
+import com.marya.service.exception.ValidationException;
 import com.marya.service.mapper.ProductServiceMapper;
 import com.marya.service.model.PageQueryParams;
 import org.springframework.data.domain.Page;
@@ -26,11 +27,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product create(Product product) {
+        if (Objects.isNull(product.getName()) || product.getName().isEmpty())
+            throw new ValidationException("category name is empty.");
         return productRepository.save(product);
     }
 
     @Override
     public void update(Product product) {
+        if (Objects.isNull(product.getName()) || product.getName().isEmpty())
+            throw new ValidationException("category name is empty.");
         Product existingProduct = getById(product.getId());
         productServiceMapper.updateProduct(existingProduct, product);
         productRepository.save(existingProduct);

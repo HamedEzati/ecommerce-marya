@@ -1,5 +1,6 @@
 package com.marya.controller;
 
+import com.marya.controller.dto.MessagesView;
 import com.marya.entity.Product;
 import com.marya.service.ProductService;
 import org.apache.commons.io.FilenameUtils;
@@ -77,8 +78,8 @@ public class UploadFile {
                 IOUtils.copy(input, output);
                 product.setImageUrl("images/" + filename);
                 productService.update(product);
-                FacesMessage message = new FacesMessage("Successful");
-                FacesContext.getCurrentInstance().addMessage(null, message);
+                MessagesView.updateMessage();
+                productId = null;
             } finally {
                 IOUtils.closeQuietly(input);
                 IOUtils.closeQuietly(output);

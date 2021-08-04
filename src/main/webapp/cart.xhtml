@@ -61,6 +61,36 @@
     .deleteButton:hover {
         cursor: pointer;
     }
+    input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
 
 </style>
 <h:body>
@@ -78,7 +108,24 @@
             </tr>
         </table>
 
-        <button id="payButton"></button>
+        <div>
+
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Your full name.."/>
+
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" name="phone" placeholder="Your phone.."/>
+
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Your address.."/>
+
+                <label for="postalCode">Postal Code</label>
+                <input type="text" id="postalCode" name="postalCode" placeholder="Your postal code.."/>
+
+                <button id="payButton" onclick="pay()"></button>
+
+        </div>
+
 
     </div>
 </h:body>
@@ -108,6 +155,36 @@
         cell4.appendChild(btn);
         totalPrice += cart[i].price;
     }
-    document.getElementById("payButton").innerHTML = "Pay: total price = $" + totalPrice;
+    document.getElementById("payButton").innerHTML = "Pay: total price = $" + totalPrice.toFixed(2);
+    function pay() {
+        fullName = document.getElementById("fullName").value;
+        phone = document.getElementById("phone").value;
+        address = document.getElementById("address").value;
+        postalCode = document.getElementById("postalCode").value;
+
+        if (cart.length &lt;= 0){
+            alert("please add a product to cart.");
+            return;
+        }
+        if (fullName.length &lt;= 0){
+            alert("please fill full name.");
+            return;
+        }
+        if (phone.length &lt;= 0){
+            alert("please fill phone.");
+            return;
+        }
+        if (address.length &lt;= 0){
+            alert("please fill address.");
+            return;
+        }
+        if (postalCode.length &lt;= 0){
+            alert("please fill postalCode.");
+            return;
+        }
+        alert("your purchase order successfully.");
+        localStorage.removeItem("cart");
+        location.assign("index.xhtml");
+    }
 </script>
 </html>

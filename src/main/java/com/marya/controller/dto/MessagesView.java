@@ -8,7 +8,12 @@ public class MessagesView {
 
 	public static void saveCategoryMessage() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Created Category"));
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful created Category.", ""));
+	}
+
+	public static void uploadFileMessage() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "file uploaded."));
 	}
 	public static void deleteMessage() {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -16,7 +21,7 @@ public class MessagesView {
 	}
 	public static void updateMessage() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Updated Student"));
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful Uploaded", ""));
 	}
 
 	public static void saveNotMessage() {

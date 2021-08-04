@@ -85,7 +85,7 @@
     <div class="crud-category">
         <a  style="text-decoration: none;background-color: darkred; padding: 10px;color: white" href="index.xhtml">Back To Site</a>
 
-        <a id="otherpage" href="product.xhtml">newProduct And Update</a>
+        <a id="otherpage" href="product.xhtml">New Product And Update</a>
         <h2>Add New Category</h2>
         <h:form id="add-category">
             <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
@@ -103,7 +103,7 @@
 <!--                <p:message for="parentId" />-->
 
                 <!--            <p:commandButton update="@form :customers:customerList" value="Add" action="#{categoryController.create}">-->
-                <p:commandButton id="addButton" style="color: #1c7430; border: 5px solid; padding: 0px 20px 0px 20px"  update="@form :categories:categoryList" value="Add" action="#{categoryPublicController.create}">
+                <p:commandButton id="addButton" style="color: #1c7430; border: 5px solid; padding: 0px 20px 0px 20px" update="@form :categories:categoryList" value="Add" action="#{categoryPublicController.create}">
                 </p:commandButton>
             </h:panelGrid>
         </h:form>
