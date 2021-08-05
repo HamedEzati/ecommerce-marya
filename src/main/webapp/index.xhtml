@@ -152,6 +152,16 @@
         background-color: #1c7430; /* Green */
         cursor: pointer;
     }
+    #disabledButton{
+        width: 100%;
+        border-radius: 0px 0px 10px 10px;
+        background-color: #af0a00;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        font-size: 16px;
+    }
     #addButton:active{
         background-color: #1c7430;
     }
@@ -291,8 +301,14 @@
                                 <f:convertNumber currencySymbol="Price :$" type="currency"/>
                             </h:outputText>
                             <div>
+                                <h:panelGroup rendered="#{product.quantity > 0}">
                                     <button class="btn" id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.toString})" >add</button>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{product.quantity le 0}">
+                                    <button class="btn" id="disabledButton" style="text-align: center" type="button" >not exists</button>
+                                </h:panelGroup>
                             </div>
+
 
                         </div>
                     </div>
@@ -325,9 +341,18 @@ function myFunction(){
     location.reload()
 }
      function addProductToCard(product){
-        console.log(product)
-        window.location.reload()
          cart = JSON.parse(localStorage.getItem("cart") || "[]");
+         let quantity = 0;
+         cart.forEach(productInCart => {
+             if (product.id == productInCart.id){
+                 quantity++;
+             }
+         })
+         if (product.quantity &lt;= quantity){
+             alert("not exists more from this product");
+             return;
+         }
+        window.location.reload()
          cart.push(product);
          localStorage.setItem("cart", JSON.stringify(cart));
 

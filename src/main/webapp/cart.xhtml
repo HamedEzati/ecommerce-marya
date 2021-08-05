@@ -125,7 +125,10 @@
                 <button id="payButton" onclick="pay()"></button>
 
         </div>
+        <h:form>
 
+        <p:remoteCommand name="rc" action="#{paymentController.pay}"/>
+        </h:form>
 
     </div>
 </h:body>
@@ -143,10 +146,10 @@
         btn.innerHTML = "Delete";
         btn.className = "deleteButton"
         btn.onclick = function () {
-            let newCart = cart.filter(el => {
-                return el.id != cart[i].id;
-            })
-            localStorage.setItem("cart", JSON.stringify(newCart));
+                    if (i > -1) {
+                        cart.splice(i, 1);
+                    }
+            localStorage.setItem("cart", JSON.stringify(cart));
             location.reload();
         };
         cell1.innerHTML = i + 1;
@@ -183,8 +186,18 @@
             return;
         }
         alert("your purchase order successfully.");
+        cart2 =  JSON.parse(localStorage.getItem("cart") || "[]");
         localStorage.removeItem("cart");
         location.assign("index.xhtml");
+        var promise = rc([{name: 'cart', value: cart2.map(cartProduct => {
+            return cartProduct.id;
+            })}]);
+        promise.then(function (responseData) {
+            var serverTime = responseData.jqXHR.pfArgs.serverTime;
+            console.log("Request successful, returned server time is", serverTime);
+        }).catch(function (error) {
+            console.error("Request failed", error);
+        });
     }
 </script>
 </html>
