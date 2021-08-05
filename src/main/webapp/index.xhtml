@@ -289,10 +289,9 @@
                         <div id = 'priceDetail' class="product-grid-item-bottom">
                             <h:outputText value="#{product.price}" styleClass="product-price">
                                 <f:convertNumber currencySymbol="Price :$" type="currency"/>
-                                <button class="bnt" style="text-align: center" type="button" onclick="addProductToCard(#{product.toString})">add</button>
                             </h:outputText>
                             <div>
-                                <button class="btn" id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.toString})">add</button>
+                                    <button class="btn" id="addButton" style="text-align: center" type="button" onclick="addProductToCard(#{product.toString})" >add</button>
                             </div>
 
                         </div>

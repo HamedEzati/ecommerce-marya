@@ -149,7 +149,7 @@
                     <f:selectItem itemLabel="Select One" itemValue=""/>
                     <f:selectItems value="#{uploadFile.productsGroup}"/>
                 </p:selectOneMenu>
-                <p:fileUpload value="#{uploadFile.file}" mode="simple"/>
+                <p:fileUpload value="#{uploadFile.file}" mode="simple" skinSimple="true"/>
                 <p:commandButton value="upload" ajax="false" action="#{uploadFile.upload}" styleClass="p-mt-3 ui-button-outlined p-d-block"/>
             </h:panelGrid>
         </h:form>
