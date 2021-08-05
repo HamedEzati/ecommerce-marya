@@ -69,6 +69,20 @@
             color: white;
         }
 
+        .download-btn{
+            border-radius: 5px;
+            background-color: #1c7430; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .download-btn:hover{
+            background-color: #4CAF50; /* Green */
+            cursor: pointer;
+        }
+
     </style>
 </h:head>
 <h:body>
@@ -120,7 +134,7 @@
             </p:selectOneMenu>
 
             <!--            <p:commandButton update="@form :customers:customerList" value="Add" action="#{categoryController.create}">-->
-            <p:commandButton style="color: white; background: #1c7430; padding: 5px" update="@form :products:productList" value="Add" action="#{productPublicController.create}">
+            <p:commandButton style="color: white; background: #1c7430; padding: 5px" update="@form :products:productList :upload-image" value="Add" action="#{productPublicController.create}">
             </p:commandButton>
         </h:panelGrid>
     </h:form>
@@ -128,7 +142,7 @@
     <div class="card">
         <h2 style="background-color: darkolivegreen;color: white;padding: 10px">Upload product image</h2>
         <p:separator/>
-        <h:form enctype="multipart/form-data">
+        <h:form id="upload-image" enctype="multipart/form-data">
             <h:panelGrid columns="4" cellpadding="5" style="margin: 0 auto;">
                 <p:outputLabel for="@next" value="Product image"/>
                 <p:selectOneMenu id="groupProducts" value="#{uploadFile.productId}">
@@ -177,7 +191,7 @@
 
             <p:column>
 
-                <p:commandButton style="color:white; background: darkred " update="productList" value="Delete" icon="ui-icon-closethick"
+                <p:commandButton style="color:white; background: darkred " update="productList :upload-image" value="Delete" icon="ui-icon-closethick"
                                  action="#{productPublicController.delete(product.id)}"
                                  styleClass="ui-priority-primary">
                 </p:commandButton>
@@ -186,7 +200,7 @@
         </p:dataTable>
 
         <p:commandButton style="float: right; background: green;color: white;padding: 0px 20px 0px 20px;text-align: center;margin: 10px 55px 30px 10px" id="save-profuct" value="Save" tyleClass="ui-priority-primary"
-                         action="#{productPublicController.update}"  update="@form :products:productList">
+                         action="#{productPublicController.update}"  update="@form :products:productList :upload-image">
             <f:ajax execute="@form" render="@form"/>
         </p:commandButton>
     </h:form>

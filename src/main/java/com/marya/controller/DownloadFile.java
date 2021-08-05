@@ -1,5 +1,6 @@
 package com.marya.controller;
 
+import com.marya.entity.Category;
 import com.marya.entity.Product;
 import com.marya.service.CategoryService;
 import com.marya.service.ProductService;
@@ -7,6 +8,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -21,6 +23,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @ManagedBean
 @RequestScoped
@@ -69,6 +72,13 @@ public class DownloadFile {
             }
         }else {
             List<Product> all = productService.getAllByCategoryId(categoryId);
+            Category category = categoryService.getById(categoryId);
+            Set<Category> subcategories = category.getSubcategories();
+            if (!CollectionUtils.isEmpty(subcategories)){
+                subcategories.forEach(subCategory ->{
+                    all.addAll(productService.getAllByCategoryId(subCategory.getId()));
+                } );
+            }
             for (Product product : all) {
                 csvPrinter.printRecord(
                         product.getId(),

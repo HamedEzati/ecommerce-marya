@@ -68,4 +68,10 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getParents() {
         return categoryRepository.findAllByParent(null);
     }
+
+    @Override
+    public List<Category> getByParentCategory(Category category) {
+        return categoryRepository.findAllByParent(category);
+    }
+
 }

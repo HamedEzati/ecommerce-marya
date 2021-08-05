@@ -21,4 +21,6 @@ public interface CategoryService {
 
     List<Category> getParents();
 
+    List<Category> getByParentCategory(Category category);
+
 }
