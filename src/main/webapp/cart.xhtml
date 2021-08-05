@@ -188,7 +188,7 @@
         alert("your purchase order successfully.");
         cart2 =  JSON.parse(localStorage.getItem("cart") || "[]");
         localStorage.removeItem("cart");
-        location.assign("index.xhtml");
+        location.reload();
         var promise = rc([{name: 'cart', value: cart2.map(cartProduct => {
             return cartProduct.id;
             })}]);
